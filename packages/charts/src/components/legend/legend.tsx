@@ -107,6 +107,14 @@ function LegendComponent(props: LegendStateProps & LegendDispatchProps) {
     labelOptions: legend.labelOptions,
   };
   const positionStyle = legendPositionStyle(config, size, chartDimensions, containerDimensions);
+
+  //Edmar Moretti - aplica a opção AUTO
+  
+  if(containerStyle.height && parseInt(containerStyle.height,10) <= 80){
+    containerStyle.height = "auto";
+    containerStyle.maxHeight = "80px";
+  }
+
   return (
     <div className={legendClasses} style={positionStyle} dir={isMostlyRTL ? 'rtl' : 'ltr'}>
       <div style={containerStyle} className="echLegendListContainer">

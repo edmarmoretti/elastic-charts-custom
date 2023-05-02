@@ -98,7 +98,7 @@ export const Example = () => {
         theme={theme}
         baseTheme={useBaseTheme()}
         debug={debug}
-        rotation={getChartRotationKnob()}
+        rotation={90}
         showLegend
         showLegendExtra
         legendPosition={getPositionKnob('legend')}

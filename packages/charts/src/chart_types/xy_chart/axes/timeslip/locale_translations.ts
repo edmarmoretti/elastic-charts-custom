@@ -140,4 +140,16 @@ export const LOCALE_TRANSLATIONS = {
     millisecond: ['миллисекунда', 'миллисекунд'],
     one: ['', ''],
   },
+  'pt-Br': {
+    bar: 'barra',
+    year: ['ano', 'anos'],
+    month: ['mês', 'meses'],
+    week: ['semana', 'semanas'],
+    day: ['dia', 'dias'],
+    hour: ['hora', 'horas'],
+    minute: ['minuto', 'minutos'],
+    second: ['segundo', 'segundos'],
+    millisecond: ['milisegundo', 'milesegundos'],
+    one: ['', ''],
+  }
 };

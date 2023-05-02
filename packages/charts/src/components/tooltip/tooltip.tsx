@@ -132,7 +132,11 @@ export const TooltipComponent = <D extends BaseDatum = Datum, SI extends SeriesI
       type: 'custom',
       cell: ({ formattedValue }) => (
         <span className="echTooltip__value" dir="ltr">
-          {formattedValue}
+          {
+          //Edmar Moretti remove ,00
+          //formattedValue
+          formattedValue.substring(formattedValue.length-3,formattedValue.length) == ",00" ? formattedValue.substring(0,formattedValue.length-3) : formattedValue
+          }
         </span>
       ),
       style: {

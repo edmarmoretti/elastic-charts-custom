@@ -17,7 +17,8 @@ import {
   DEFAULT_GEOMETRY_STYLES,
   DEFAULT_MISSING_COLOR,
 } from './theme_common';
-
+// Edmar Moretti
+// alterarda a cor de axisPanelTitle
 /** @public */
 export const LIGHT_THEME: Theme = {
   chartPaddings: DEFAULT_CHART_PADDING,
@@ -134,7 +135,7 @@ export const LIGHT_THEME: Theme = {
         inner: 8,
         outer: 0,
       },
-      fill: '#333',
+      fill: '#B8B8B8',
     },
     axisLine: {
       visible: true,

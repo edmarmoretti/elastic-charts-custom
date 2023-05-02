@@ -49,6 +49,18 @@ export function renderTickLabel(
 
   const tickOnTheSide = timeAxisLayerCount > 0 && Number.isFinite(tick.layer);
 
+  // Moretti - remoção do ,00 dos labels dos eixos
+    
+  if(tick.label.substring(tick.label.length-3,tick.label.length) == ",00"){
+    tick.label = tick.label.substring(0,tick.label.length-3);
+  }
+  if(tick.label.substring(tick.label.length-4,tick.label.length) == ",00%"){
+    tick.label = tick.label.substring(0,tick.label.length-4)+"%";
+  }
+
+  //
+
+
   renderText(
     ctx,
     center,

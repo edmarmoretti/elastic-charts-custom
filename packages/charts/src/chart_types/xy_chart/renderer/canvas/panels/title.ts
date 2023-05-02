@@ -63,9 +63,36 @@ export function renderTitle(
       : tickDimension + labelSize + innerPad(titlePadding) + (panel ? 0 : otherTitleDimension);
   const x = anchorPoint.x + (horizontal ? 0 : offset);
   const y = anchorPoint.y + (horizontal ? offset : height);
-  const textX = horizontal ? width / 2 + (panel ? 0 : x) : font.fontSize / 2 + (panel ? offset : x);
-  const textY = horizontal ? font.fontSize / 2 + (panel ? offset : y) : (panel ? height : -height + 2 * y) / 2;
+
+   //
+  //Edmar Moretti - posiciona o título no início
+
+  //const textX = horizontal ? width / 2 + (panel ? 0 : x) : font.fontSize / 2 + (panel ? offset : x);
+  //const textY = horizontal ? font.fontSize / 2 + (panel ? offset : y) : (panel ? height : -height + 2 * y) / 2;
+  
+  let textX = horizontal ? width / 2 + (panel ? 0 : x) : font.fontSize / 2 + (panel ? offset : x);
+  let textY = horizontal ? font.fontSize / 2 + (panel ? offset : y) : (panel ? height : -height + 2 * y) / 2;
+
+ 
+  if(!horizontal){
+    textY = anchorPoint.y;
+    font.align = 'end';
+  }
+  if(horizontal){
+    textX = anchorPoint.x;
+    font.align = 'start';
+  }
+  
+  //fim
+  //  
+
+  //Edmar Moretti - remove a palavra filters do título
+  let titleClean = '';
+  if(titleToRender){
+    titleClean = titleToRender.replace('filters','');
+  }
+  //
 
   if (debug) renderDebugRect(ctx, { x, y, width: horizontal ? width : height, height: font.fontSize }, rotation);
-  renderText(ctx, { x: textX, y: textY }, titleToRender ?? '', font, rotation);
+  renderText(ctx, { x: textX, y: textY }, titleClean, font, rotation);
 }

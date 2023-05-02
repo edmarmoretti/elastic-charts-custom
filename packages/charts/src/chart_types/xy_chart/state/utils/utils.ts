@@ -156,6 +156,34 @@ export function computeSeriesDomains(
   const verticalPredicate = smallMultiples?.vertical?.sort ?? Predicate.DataIndex;
   const smVDomain = [...smVValues].sort(getPredicateFn(verticalPredicate));
 
+//Edmar Moretti
+//mostra apenas o primeiro gráfico do conjunto de gráficos
+//console.log(formattedDataSeries);
+
+if(formattedDataSeries[0].smVerticalAccessorValue || formattedDataSeries[0].smHorizontalAccessorValue){
+  let firstSplit = formattedDataSeries[0].spec.id;
+  let index0 = 0;
+  let divide = true;
+  formattedDataSeries.forEach(el => {
+    if (el.spec.id == firstSplit){
+      index0++;
+    }
+    el.data.forEach(d => {
+      if(d.datum == undefined){
+          divide = false;
+      }
+    })
+  });
+  if(!divide){
+    formattedDataSeries.splice(index0,formattedDataSeries.length-1);
+    smHDomain.splice(1, smHDomain.length-1);
+    smVDomain.splice(1, smVDomain.length-1);
+  }
+}
+
+// fim
+
+
   return {
     xDomain,
     yDomains,

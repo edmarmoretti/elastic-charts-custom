@@ -12,12 +12,15 @@ import { Margins, Size } from '../../utils/dimensions';
 import { LegendStyle as ThemeLegendStyle } from '../../utils/themes/theme';
 
 /** @internal */
+// Edmar Moretti - inclusão de height e maxHeight para não gerar erro de compilação
 export type LegendStyle =
   | {
       width?: string;
       maxWidth?: string;
       marginLeft?: number;
       marginRight?: number;
+      height?: string;
+      maxHeight?: string;
     }
   | {
       height?: string;
@@ -25,6 +28,7 @@ export type LegendStyle =
       marginTop?: number;
       marginBottom?: number;
     };
+
 
 /** @internal */
 export interface LegendListStyle {

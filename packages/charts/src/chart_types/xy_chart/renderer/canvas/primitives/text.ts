@@ -53,6 +53,13 @@ export function renderText(
       ctx.strokeStyle = font.shadow;
       ctx.strokeText(text, 0, 0);
     }
+    //Edmar Moretti - remove ,00 dos labels internos
+    if (text.substring(text.length - 3, text.length) == ",00") {
+       text = text.substring(0, text.length - 3);
+    }
+    if (text.substring(text.length - 4, text.length) == ",00%") {
+      text = text.substring(0, text.length - 4) + "%";
+    }
     ctx.fillText(text, 0, 0);
   });
 }
