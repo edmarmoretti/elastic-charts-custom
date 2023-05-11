@@ -195,7 +195,7 @@ function positionText(
 }
 
 function isOverflow(rect: Rect, chartDimensions: Dimensions, chartRotation: Rotation) {
-  console.log(rect);
+  //console.log(rect);
   const vertical = Math.abs(chartRotation) === 90;
   const cWidth = vertical ? chartDimensions.height : chartDimensions.width;
   const cHeight = vertical ? chartDimensions.width : chartDimensions.height;

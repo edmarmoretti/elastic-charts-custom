@@ -29,3 +29,4 @@ playground/playground.tsx
 
 # keep only top-level lock file
 **/*/yarn.lock
+packages/charts/elastic-charts-50.2.1b.tgz
