@@ -13,19 +13,27 @@ import * as TestDatasets from '@elastic/charts/src/utils/data_samples/test_datas
 
 import { useBaseTheme } from '../../use_base_theme';
 
-export const Example = () => (
+export const Example = () => {
+  const data1 = [
+    { x: 0, y: 2.1 },
+    { x: 1, y: 7.0 },
+    { x: 2, y: 3 },
+    { x: 3, y: 6 },
+  ];
+  return (
   <Chart>
     <Settings showLegend showLegendExtra legendPosition={Position.Right} baseTheme={useBaseTheme()} />
     <Axis id="bottom" position={Position.Bottom} title="Bottom axis" showOverlappingTicks />
     <Axis id="left2" title="Left axis" position={Position.Left} tickFormat={(d: any) => Number(d).toFixed(2)} />
 
     <BarSeries
-      id="bars1"
+      id="bars1 (R$)"
       xScaleType={ScaleType.Ordinal}
       yScaleType={ScaleType.Linear}
       xAccessor="x"
       yAccessors={['y']}
-      data={TestDatasets.BARCHART_1Y0G}
+      data={data1}
     />
   </Chart>
-);
+)
+};

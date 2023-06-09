@@ -78,8 +78,8 @@ export const Example = () => {
         xAccessor="x"
         yAccessors={['y']}
         data={[
-          { x: 0, y: 2 },
-          { x: 1, y: 7 },
+          { x: 0, y: 2.65 },
+          { x: 1, y: 7.00 },
           { x: 3, y: 6 },
         ]}
       />

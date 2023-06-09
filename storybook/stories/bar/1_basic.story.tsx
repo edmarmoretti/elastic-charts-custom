@@ -16,8 +16,8 @@ import { useBaseTheme } from '../../use_base_theme';
 export const Example = () => {
   const toggleSpec = boolean('toggle bar spec', true);
   const data1 = [
-    { x: 0, y: 2 },
-    { x: 1, y: 7 },
+    { x: 0, y: 2.1 },
+    { x: 1, y: 7.0 },
     { x: 2, y: 3 },
     { x: 3, y: 6 },
   ];

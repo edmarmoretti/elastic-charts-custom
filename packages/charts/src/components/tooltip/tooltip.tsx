@@ -130,12 +130,19 @@ export const TooltipComponent = <D extends BaseDatum = Datum, SI extends SeriesI
     {
       id: 'value',
       type: 'custom',
-      cell: ({ formattedValue }) => (
+      cell: ({ formattedValue, label }) => (
         <span className="echTooltip__value" dir="ltr">
           {
-          //Edmar Moretti remove ,00
-          //formattedValue
-          formattedValue.substring(formattedValue.length-3,formattedValue.length) == ",00" ? formattedValue.substring(0,formattedValue.length-3) : formattedValue
+            //Edmar Moretti remove ,00
+            //não remove se ocorrer R no número ou (R$) no label
+            //formattedValue
+            
+            label.substring(label.length-4,label.length) !== "(R$)" ?
+              (formattedValue.substring(0,formattedValue.length) !== "R" ? 
+                (formattedValue.substring(formattedValue.length-3,formattedValue.length) == ",00" ? formattedValue.substring(0,formattedValue.length-3) : formattedValue) 
+              : formattedValue)
+            : formattedValue
+            
           }
         </span>
       ),
