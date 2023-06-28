@@ -55,7 +55,7 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       textColor: fillColor,
     };
 
-    const { x, y, align, baseline, rect, overflow } = positionText(
+    var { x, y, align, baseline, rect, overflow } = positionText(
       bar,
       bar.displayValue,
       rotation,
@@ -63,18 +63,19 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       alignment,
     );
 
-    // Edmar Moretti - força a não renderizar textos que estejam fora da geometria
+    // Edmar Moretti - força a renderizar textos que estejam fora da geometria
     if (isOverflow(rect, renderingArea, rotation)) {
-      return;
+      if(rotation == 90 && renderingArea.width < rect.width){
+        y = y - rect.height;
+      } else{
+        return;
+      }
     }
     /*
     if (overflowConstraints.has(LabelOverflowConstraint.ChartEdges) && isOverflow(rect, renderingArea, rotation)) {
       return;
     }
     */
-    
-    
-
     
     if (overflowConstraints.has(LabelOverflowConstraint.BarGeometry) && overflow) {
       return;
@@ -200,7 +201,7 @@ function isOverflow(rect: Rect, chartDimensions: Dimensions, chartRotation: Rota
   const cWidth = vertical ? chartDimensions.height : chartDimensions.width;
   const cHeight = vertical ? chartDimensions.width : chartDimensions.height;
   //Edmar Moretti - aumenta o fator que determina se o texto está dentro do gráfico
-  return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height + 80 > cHeight;
+  return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height + 60 > cHeight;
   //return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height > cHeight;
 }
 

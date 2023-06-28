@@ -156,9 +156,7 @@ export function computeSeriesDomains(
   const verticalPredicate = smallMultiples?.vertical?.sort ?? Predicate.DataIndex;
   const smVDomain = [...smVValues].sort(getPredicateFn(verticalPredicate));
 
-//Edmar Moretti
-//mostra apenas o primeiro gráfico do conjunto de gráficos
-//console.log(formattedDataSeries);
+//Edmar Moretti - mostra apenas o primeiro gráfico do conjunto de gráficos
 
 if(formattedDataSeries[0].smVerticalAccessorValue || formattedDataSeries[0].smHorizontalAccessorValue){
   let firstSplit = formattedDataSeries[0].spec.id;

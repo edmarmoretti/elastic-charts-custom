@@ -29,9 +29,9 @@ const dataGen = new SeededDataGenerator();
 function generateDataWithAdditional(num: number) {
   return [...dataGen.generateSimpleSeries(num), { x: num, y: 0.25, g: 0 }, { x: num + 1, y: 8, g: 0 }];
 }
-const frozenDataSmallVolume = generateDataWithAdditional(5);
+const frozenDataSmallVolume = generateDataWithAdditional(50);
 const frozenDataMediumVolume = generateDataWithAdditional(30);
-const frozenDataHighVolume = generateDataWithAdditional(500);
+const frozenDataHighVolume = generateDataWithAdditional(60);
 
 const frozenData: { [key: string]: any[] } = {
   s: frozenDataSmallVolume,

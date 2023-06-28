@@ -17,8 +17,7 @@ import {
   DEFAULT_GEOMETRY_STYLES,
   DEFAULT_MISSING_COLOR,
 } from './theme_common';
-// Edmar Moretti
-// alterarda a cor de axisPanelTitle
+// Edmar Moretti - alterarda a cor de axisPanelTitle
 /** @public */
 export const LIGHT_THEME: Theme = {
   chartPaddings: DEFAULT_CHART_PADDING,
