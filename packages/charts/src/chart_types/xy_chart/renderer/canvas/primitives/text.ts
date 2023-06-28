@@ -54,9 +54,12 @@ export function renderText(
       ctx.strokeText(text, 0, 0);
     }
     //Edmar Moretti - remove ,00 dos labels internos
-    if (text.substring(text.length - 3, text.length) == ",00") {
+    if (text.substring(0,2) !== "R$" && text.substring(text.length - 3, text.length) == ",00") {
        text = text.substring(0, text.length - 3);
-    }
+    } else
+    if (text.substring(0,2) == "R$" && text.substring(text.length - 3, text.length) !== ",00") {
+      text = text + ',00';
+    } else
     if (text.substring(text.length - 4, text.length) == ",00%") {
       text = text.substring(0, text.length - 4) + "%";
     }
