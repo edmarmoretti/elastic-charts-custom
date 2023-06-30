@@ -136,7 +136,9 @@ export const TooltipComponent = <D extends BaseDatum = Datum, SI extends SeriesI
             //Edmar Moretti remove ,00 do tooltip
             //não remove se ocorrer R$ no número
             //formattedValue
-            formattedValue.substring(0,2) !== "R$" && formattedValue.substring(formattedValue.length - 3, formattedValue.length) == ",00" ? formattedValue.substring(0, formattedValue.length - 3) : (formattedValue.substring(0,2) == "R$" && formattedValue.substring(formattedValue.length - 3, formattedValue.length) !== ",00") ? formattedValue + ',00' : formattedValue
+            formattedValue.substring(0,2) !== "R$" && formattedValue.substring(formattedValue.length - 3, formattedValue.length) == ",00" ?
+             formattedValue.substring(0, formattedValue.length - 3) : 
+             ( formattedValue.substring(0,2) == "R$" && formattedValue.split(',')[1] == undefined ? formattedValue + ',00': formattedValue)
           }
         </span>
       ),
