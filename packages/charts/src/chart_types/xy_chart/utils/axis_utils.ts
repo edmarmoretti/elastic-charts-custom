@@ -217,6 +217,7 @@ export function getTickLabelPosition(
   const userOffsets = getUserTextOffsets(tickDimensions, textOffset);
   const paddedTickDimension = tickDimension + labelInnerPadding;
   const axisNetSize = (isVerticalAxis(pos) ? axisSize.width : axisSize.height) - paddedTickDimension;
+  //Edmar Moretti 
   const labelBoxHalfGirth = isHorizontalAxis(pos) ? maxLabelBboxHeight / 2 : maxLabelBboxWidth / 2;
   const labelHalfWidth = maxLabelTextWidth / 2;
   return {
@@ -263,6 +264,7 @@ export function getPosition(
   { top: cumTopSum, bottom: cumBottomSum, left: cumLeftSum, right: cumRightSum }: PerSideDistance,
 ) {
   const tickDimension = shouldShowTicks(tickLine, hide) ? tickLine.size + tickLine.padding : 0;
+
   const labelPaddingSum = tickLabel.visible ? innerPad(tickLabel.padding) + outerPad(tickLabel.padding) : 0;
   const titleDimension = title ? getTitleDimension(axisTitle) : 0;
   const vertical = isVerticalAxis(position);

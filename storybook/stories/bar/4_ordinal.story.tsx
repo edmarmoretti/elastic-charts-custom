@@ -8,28 +8,59 @@
 
 import React from 'react';
 
-import { Axis, BarSeries, Chart, Position, ScaleType, Settings } from '@elastic/charts';
+import { Axis, BarSeries, Chart, Position, ScaleType, Settings, PartialTheme } from '@elastic/charts';
 
 import { useBaseTheme } from '../../use_base_theme';
 
-export const Example = () => (
+export const Example = () => {
+  const displayValueSettings = {
+    showValueLabel: true
+  };
+  const theme: PartialTheme = {
+    barSeriesStyle: {
+      displayValue: {
+        fontSize: 12,
+        fontFamily: "'Open Sans', Helvetica, Arial, sans-serif",
+        fontStyle: 'normal',
+        padding: 0
+      },
+    },
+  };
+  return(
   <Chart>
-    <Settings baseTheme={useBaseTheme()} />
-    <Axis id="bottom" position={Position.Bottom} title="Bottom axis" showOverlappingTicks />
-    <Axis id="left2" title="Left axis" position={Position.Left} tickFormat={(d: any) => Number(d).toFixed(2)} />
+    <Settings
+    theme={theme}
+    baseTheme={useBaseTheme()} 
+    rotation={90}
+    
+    />
+    <Axis id="bottom" position={Position.Left} title="Bottom axis" showOverlappingTicks />
+    <Axis id="left2" title="Left axis" position={Position.Bottom} tickFormat={(d: any) => Number(d).toFixed(2)} />
 
     <BarSeries
       id="bars"
+      displayValueSettings={displayValueSettings}
       xScaleType={ScaleType.Ordinal}
       yScaleType={ScaleType.Linear}
       xAccessor="x"
       yAccessors={['y']}
       data={[
-        { x: 'a', y: 2 },
-        { x: 'b', y: 7 },
-        { x: 'c', y: 3 },
-        { x: 'd', y: 6 },
+        { x: 'aaaaaaaaaaa aaaaaaaaaaaaa-', y: 20000 },
+        { x: 'aaaaaaaaaaaaa bbbbbbbbbbbbb-', y: 70000 },
+        { x: 'cccccc ffff-', y: 300 },
+        { x: 'zero-', y: 0 },
+        { x: 'djjjjj-', y: 1000 },
+        { x: '1aaaaaaaaaaa aaaaaaaaaaaaa-', y: 20000 },
+        { x: '1aaaaaaaaaaaaa bbbbbbbbbbbbb-', y: 70000 },
+        { x: '1cccccc ffff-', y: 300 },
+        { x: '1zero-', y: 0 },
+        { x: '1djjjjj-', y: 1000 },
+        { x: '2aaaaaaaaaaa aaaaaaaaaaaaa-', y: 20000 },
+        { x: '2aaaaaaaaaaaaa bbbbbbbbbbbbb-', y: 70000 },
+        { x: '2cccccc ffff-', y: 300 },
+        { x: '2zero-', y: 0 }
       ]}
     />
   </Chart>
-);
+  );
+};

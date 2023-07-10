@@ -27,7 +27,7 @@ export function renderTick(
     layerGirth,
   }: AxisProps,
 ) {
-  if (Math.abs(tickPosition - position) > OUTSIDE_RANGE_TOLERANCE) return;
+   if (Math.abs(tickPosition - position) > OUTSIDE_RANGE_TOLERANCE) return;
   const tickOnTheSide = timeAxisLayerCount > 0 && typeof layer === 'number';
   const extensionLayer = tickOnTheSide ? layer + 1 : 0;
   const tickSize =

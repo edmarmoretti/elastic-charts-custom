@@ -72,8 +72,6 @@ export function renderTitle(
   
   let textX = horizontal ? width / 2 + (panel ? 0 : x) : font.fontSize / 2 + (panel ? offset : x);
   let textY = horizontal ? font.fontSize / 2 + (panel ? offset : y) : (panel ? height : -height + 2 * y) / 2;
-
- 
   if(!horizontal){
     textY = anchorPoint.y;
     font.align = 'end';

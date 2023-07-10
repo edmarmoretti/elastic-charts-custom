@@ -29,9 +29,9 @@ const dataGen = new SeededDataGenerator();
 function generateDataWithAdditional(num: number) {
   return [...dataGen.generateSimpleSeries(num), { x: num, y: 0.25, g: 0 }, { x: num + 1, y: 8, g: 0 }];
 }
-const frozenDataSmallVolume = generateDataWithAdditional(50);
-const frozenDataMediumVolume = generateDataWithAdditional(30);
-const frozenDataHighVolume = generateDataWithAdditional(60);
+const frozenDataSmallVolume = generateDataWithAdditional(5);
+const frozenDataMediumVolume = generateDataWithAdditional(3);
+const frozenDataHighVolume = generateDataWithAdditional(6);
 
 const frozenData: { [key: string]: any[] } = {
   s: frozenDataSmallVolume,
@@ -86,6 +86,7 @@ export const Example = () => {
     's',
   );
   const data = frozenData[dataSize];
+  
 
   const isSplitSeries = boolean('split series', false);
   const isStackedSeries = boolean('stacked series', false);
@@ -114,7 +115,13 @@ export const Example = () => {
         yAccessors={['y']}
         splitSeriesAccessors={splitSeriesAccessors}
         stackAccessors={stackAccessors}
-        data={data}
+        data={[
+          { x: 0, y: 20000.0005, g: 'a' },
+          { x: 1, y: 70000, g: 'a' },
+          { x: 2, y: 3000, g: 'a' },
+          { x: 3, y: 6000, g: 'a' },
+          { x: 4, y: 60, g: 'a' }
+        ]}
       />
       {!singleSeries && (
         <BarSeries
@@ -127,14 +134,14 @@ export const Example = () => {
           stackAccessors={['x']}
           splitSeriesAccessors={['g']}
           data={[
-            { x: 0, y: 2, g: 'a' },
-            { x: 1, y: 7, g: 'a' },
-            { x: 2, y: 3, g: 'a' },
-            { x: 3, y: 6, g: 'a' },
-            { x: 0, y: 4, g: 'b' },
-            { x: 1, y: 5, g: 'b' },
-            { x: 2, y: 8, g: 'b' },
-            { x: 3, y: 2, g: 'b' },
+            { x: 0, y: 200, g: 'a' },
+            { x: 1, y: 700, g: 'a' },
+            { x: 2, y: 300, g: 'a' },
+            { x: 3, y: 600, g: 'a' },
+            { x: 0, y: 400, g: 'b' },
+            { x: 1, y: 500, g: 'b' },
+            { x: 2, y: 800, g: 'b' },
+            { x: 3, y: 200, g: 'b' },
           ]}
         />
       )}

@@ -109,6 +109,7 @@ function getVisibleTicks(
   const makeRaster = enableHistogramMode && scale.bandwidth > 0 && !isMultilayerTimeAxis;
   const ultimateTick = ticks[ticks.length - 1];
   const penultimateTick = ticks[ticks.length - 2];
+  
   if (makeRaster && !isSingleValueScale && typeof penultimateTick === 'number' && typeof ultimateTick === 'number') {
     const computedTickDistance = ultimateTick - penultimateTick;
     const numTicks = scale.minInterval / (computedTickDistance || scale.minInterval); // avoid infinite loop
@@ -150,7 +151,10 @@ function getVisibleTicks(
       : generateTicks(axisSpec, scale, ticks, offset, labelFormatter, layer, detailedLayer, showGrid);
 
   const { showOverlappingTicks, showOverlappingLabels, position } = axisSpec;
-  const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight / 2 : labelBox.maxLabelBboxWidth / 2;
+  //Edmar Moretti - aumenta o espaçamento entre os labels verticais
+  //const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight / 2 : labelBox.maxLabelBboxWidth / 2;
+  const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight : labelBox.maxLabelBboxWidth / 2;
+
   const bypassOverlapCheck = showOverlappingLabels || isMultilayerTimeAxis;
   return bypassOverlapCheck
     ? allTicks

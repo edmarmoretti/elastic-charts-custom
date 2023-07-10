@@ -13,10 +13,10 @@ import { SettingsProps } from '../specs';
 interface NoResultsProps {
   renderFn?: SettingsProps['noResults'];
 }
-
+//Edmar Moretti - tradução
 /** @internal */
 export const NoResults: FC<NoResultsProps> = ({ renderFn }) => (
   <Suspense fallback={() => null}>
-    <div className="echReactiveChart_noResults">{renderFn ?? <p>No data to display</p>}</div>
+    <div className="echReactiveChart_noResults">{renderFn ?? <p>Nenhum dado para mostrar</p>}</div>
   </Suspense>
 );

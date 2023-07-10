@@ -57,10 +57,11 @@ export function renderTickLabel(
   if(tick.label.substring(tick.label.length-4,tick.label.length) == ",00%"){
     tick.label = tick.label.substring(0,tick.label.length-4)+"%";
   }
-
+  // remove labels com metade do valor
+  if(parseInt(tick.label.split(",")[1],10) == 5 || parseInt(tick.label.split(",")[1],10) == 50){
+    tick.label = "";
+  }
   //
-
-
   renderText(
     ctx,
     center,

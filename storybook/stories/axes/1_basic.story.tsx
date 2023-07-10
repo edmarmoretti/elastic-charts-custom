@@ -69,14 +69,14 @@ export const Example = () => {
         showOverlappingTicks={boolean('Left overlap ticks', true, 'Left Axis')}
         ticks={number(
           'Number of ticks on left',
-          10,
+          5,
           {
             range: true,
-            min: 2,
+            min: 1,
             max: 20,
             step: 1,
           },
-          'Left Axis',
+          'Left Axisy',
         )}
       />
 

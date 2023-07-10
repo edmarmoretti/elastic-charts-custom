@@ -27,7 +27,7 @@ import { getChartRotationKnob } from '../utils/knobs';
 
 const dataGen = new SeededDataGenerator();
 function generateDataWithAdditional(num: number) {
-  return [...dataGen.generateSimpleSeries(num), { x: num, y: 0.25, g: 0 }, { x: num + 1, y: 8, g: 0 }];
+  return [...dataGen.generateSimpleSeries(num), { x: num, y: 10.25, g: 0 }, { x: num + 1, y: 8, g: 0 }];
 }
 const frozenDataSmallVolume = generateDataWithAdditional(10);
 const frozenDataMediumVolume = generateDataWithAdditional(50);
@@ -156,11 +156,11 @@ export const Example = () => {
         stackAccessors={['x']}
         splitSeriesAccessors={['g']}
         data={[
-          { x: 0, y: 2, g: 'a' },
+          { x: 0, y: 200, g: 'a' },
           { x: 1, y: 7, g: 'a' },
-          { x: 2, y: 3, g: 'a' },
-          { x: 3, y: 6, g: 'a' },
-          { x: 0, y: 4, g: 'b' },
+          { x: 2, y: 300, g: 'a' },
+          { x: 3, y: 60, g: 'a' },
+          { x: 0, y: 4000, g: 'b' },
           { x: 1, y: 5, g: 'b' },
           { x: 2, y: 8, g: 'b' },
           { x: 3, y: 2, g: 'b' },

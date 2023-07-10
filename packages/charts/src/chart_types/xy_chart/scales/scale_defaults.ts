@@ -16,9 +16,11 @@ export const X_SCALE_DEFAULT = {
 };
 
 /** @internal */
+//Edmar Moretti - arredonda o maior valor do eixo Y
 export const Y_SCALE_DEFAULT = {
   type: ScaleType.Linear,
-  nice: false,
+  //nice: false,
+  nice: true,
   desiredTickCount: 10,
   constrainDomainPadding: undefined,
   domainPixelPadding: 0,
