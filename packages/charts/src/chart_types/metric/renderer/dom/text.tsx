@@ -205,6 +205,7 @@ export const MetricText: React.FunctionComponent<{
         fontSize: `${TITLE_FONT_SIZE[size]}px`,
         whiteSpace: 'pre-wrap',
         width: titlesWidth,
+        ...lineClamp(10),
       }}
       title={datum.title}
     >
@@ -250,7 +251,7 @@ export const MetricText: React.FunctionComponent<{
               fontSize: `${SUBTITLE_FONT_SIZE[size]}px`,
               width: titlesWidth,
               whiteSpace: 'pre-wrap',
-              //...lineClamp(visibility.subtitleLines.length),
+              ...lineClamp(10),
             }}
             title={datum.subtitle}
           >
