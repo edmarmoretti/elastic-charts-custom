@@ -127,6 +127,7 @@ export function renderBars(
             width: bboxWidthFactor * displayValueWidth,
             height: textScalingFactor * fixedFontScale,
             overflowConstraints,
+            isValueContainedInElement: true,
           }
         : undefined;
 

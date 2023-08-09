@@ -6,11 +6,11 @@
  * Side Public License, v 1.
  */
 
-import { unitIntervalWidth, AxisLayer, Interval, continuousTimeRasters } from './continuous_time_rasters';
 import { ScaleContinuous } from '../../../../scales';
 import { XDomain } from '../../domains/types';
 import { AxisLabelFormatter } from '../../state/selectors/axis_tick_formatter';
 import { GetMeasuredTicks, Projection } from '../../state/selectors/visible_ticks';
+import { unitIntervalWidth, AxisLayer, Interval, continuousTimeRasters } from './continuous_time_rasters';
 
 const WIDTH_FUDGE = 1.05; // raster bin widths are sometimes approximate, but there's no raster that's just 5% denser/sparser, so it's safe
 
@@ -21,7 +21,8 @@ export const MAX_TIME_TICK_COUNT = 50; // this doesn't do much for narrow charts
 export const MAX_TIME_GRID_COUNT = 12;
 
 /** @internal */
-export const DEFAULT_LOCALE = 'en-US';
+//Edmar Moretti - locale pt-br
+export const DEFAULT_LOCALE = 'pt-Br';
 
 /** @internal */
 export const MINIMUM_TICK_PIXEL_DISTANCE = 24;
@@ -60,7 +61,7 @@ export function multilayerAxisEntry(
   const binWidthMs = xDomain.minInterval;
   const binWidth = binWidthMs / 1000; // seconds to milliseconds
   const domainExtension = extendByOneBin ? binWidthMs : 0;
-  const domainToS = ((Number(domainValues.at(-1)) || NaN) + domainExtension) / 1000;
+  const domainToS = ((Number(domainValues[domainValues.length - 1]) || NaN) + domainExtension) / 1000;
   const cartesianWidth = Math.abs(range[1] - range[0]);
   const layers = rasterSelector(notTooDense(domainFromS, domainToS, binWidth, cartesianWidth, MAX_TIME_TICK_COUNT));
   let layerIndex = -1;
@@ -85,16 +86,8 @@ export function multilayerAxisEntry(
       if (l.labeled) layerIndex++; // we want three (or however many) _labeled_ axis layers; others are useful for minor ticks/gridlines, and for giving coarser structure eg. stronger gridline for every 6th hour of the day
       if (layerIndex >= timeAxisLayerCount) return combinedEntry;
       const timeTicks = [...l.intervals(binStartsFrom, binStartsTo)]
-        .filter((b) => {
-          if (b.labelSupremum !== b.supremum && b.minimum < domainFromS) return false;
-          return b.supremum > domainFromS && b.minimum <= domainToS;
-        })
+        .filter((b) => b.supremum > domainFromS && b.minimum <= domainToS)
         .map((b) => 1000 * b.minimum);
-
-      if (timeTicks.length === 0) {
-        return combinedEntry;
-      }
-
       const { entry } = fillLayerTimeslip(
         layerIndex,
         detailedLayerIndex,
@@ -104,7 +97,7 @@ export function multilayerAxisEntry(
       );
       const minLabelGap = 4;
 
-      const lastTick = entry.ticks.at(-1);
+      const lastTick = entry.ticks[entry.ticks.length - 1];
       if (lastTick && lastTick.position + entry.labelBox.maxLabelBboxWidth > range[1]) {
         lastTick.label = '';
       }

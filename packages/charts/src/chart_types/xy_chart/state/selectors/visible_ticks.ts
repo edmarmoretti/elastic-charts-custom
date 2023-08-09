@@ -150,7 +150,10 @@ function getVisibleTicks(
       : generateTicks(axisSpec, scale, ticks, offset, labelFormatter, layer, detailedLayer, showGrid);
 
   const { showOverlappingTicks, showOverlappingLabels, position } = axisSpec;
-  const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight / 2 : labelBox.maxLabelBboxWidth / 2;
+  //Edmar Moretti - aumenta o espaçamento entre os labels verticais
+  //const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight / 2 : labelBox.maxLabelBboxWidth / 2;
+  const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight / 1.5 : labelBox.maxLabelBboxWidth / 2;
+
   const bypassOverlapCheck = showOverlappingLabels || isMultilayerTimeAxis;
   return bypassOverlapCheck
     ? allTicks

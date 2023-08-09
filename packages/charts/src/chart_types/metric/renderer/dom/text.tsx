@@ -172,7 +172,9 @@ export const MetricText: React.FunctionComponent<{
 
   const visibility = elementVisibility(datum, panel, size);
 
-  const titleWidthMaxSize = size === 's' ? '100%' : '80%';
+  //Edmar Moretti espaçamento do titulo
+  const titleWidthMaxSize = size === 's' ? '100%' : '100%';
+  //const titleWidthMaxSize = size === 's' ? '100%' : '80%';
   const titlesWidth = `min(${titleWidthMaxSize}, calc(${titleWidthMaxSize} - ${datum.icon ? '24px' : '0px'}))`;
 
   const isNumericalMetric = isMetricWNumber(datum);
@@ -181,6 +183,8 @@ export const MetricText: React.FunctionComponent<{
       ? splitNumericSuffixPrefix(datum.valueFormatter(value))
       : [{ emphasis: 'normal', text: style.nonFiniteText }]
     : [{ emphasis: 'normal', text: datum.value }];
+  //Edmar Moretti - remove a limitação do texto
+  /*
   const TitleElement = () => (
     <span
       style={{
@@ -188,6 +192,19 @@ export const MetricText: React.FunctionComponent<{
         whiteSpace: 'pre-wrap',
         width: titlesWidth,
         ...lineClamp(visibility.titleLines.length),
+      }}
+      title={datum.title}
+    >
+      {datum.title}
+    </span>
+  );
+  */
+  const TitleElement = () => (
+    <span
+      style={{
+        fontSize: `${TITLE_FONT_SIZE[size]}px`,
+        whiteSpace: 'pre-wrap',
+        width: titlesWidth,
       }}
       title={datum.title}
     >
@@ -233,7 +250,7 @@ export const MetricText: React.FunctionComponent<{
               fontSize: `${SUBTITLE_FONT_SIZE[size]}px`,
               width: titlesWidth,
               whiteSpace: 'pre-wrap',
-              ...lineClamp(visibility.subtitleLines.length),
+              //...lineClamp(visibility.subtitleLines.length),
             }}
             title={datum.subtitle}
           >
