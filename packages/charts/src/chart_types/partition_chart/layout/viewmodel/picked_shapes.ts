@@ -133,6 +133,8 @@ function getTooltipValueFromNode(
   const model = shapeViewModel.quadViewModel.find(
     (d) => d.depth === depth && d.dataName === dataName && d.value === value,
   );
+  //Edmar Moretti - remove os cálculos em percentual dos gráficos de tipo mosaico
+  /*
   return {
     label: formatter ? formatter(dataName) : dataName,
     color: model?.fillColor ?? 'transparent',
@@ -146,4 +148,19 @@ function getTooltipValueFromNode(
     formattedValue: `${valueFormatter(value)}\u00A0(${percentFormatter(percentValueGetter(node))})`,
     valueAccessor: node[DEPTH_KEY],
   };
+  */
+  return {
+    label: formatter ? formatter(dataName) : dataName,
+    color: model?.fillColor ?? 'transparent',
+    isHighlighted: false,
+    isVisible: true,
+    seriesIdentifier: {
+      specId: id,
+      key: model?.dataName ?? '',
+    },
+    value: node[AGGREGATE_KEY],
+    formattedValue: `${valueFormatter(value)}\u00A0`,
+    valueAccessor: node[DEPTH_KEY],
+  };
+
 }

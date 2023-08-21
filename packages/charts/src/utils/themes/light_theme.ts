@@ -17,7 +17,7 @@ import {
 import { Colors } from '../../common/colors';
 import { GOLDEN_RATIO, TAU } from '../../common/constants';
 import { ColorVariant } from '../common';
-
+//Edmar Moretti - altera para maxFontSize: 12, a config de gráficos do tipo mosaic
 /** @public */
 export const LIGHT_THEME: Theme = {
   chartPaddings: DEFAULT_CHART_PADDING,
@@ -290,7 +290,7 @@ export const LIGHT_THEME: Theme = {
     emptySizeRatio: 0,
     fontFamily: 'Sans-Serif',
     minFontSize: 8,
-    maxFontSize: 64,
+    maxFontSize: 12,
     idealFontSizeJump: 1.05,
     maximizeFontSize: false,
     circlePadding: 2,
@@ -302,9 +302,9 @@ export const LIGHT_THEME: Theme = {
       fontFamily: 'Sans-Serif',
       fontStyle: 'normal',
       fontVariant: 'normal',
-      fontWeight: 400,
+      fontWeight: 100,
       valueFont: {
-        fontWeight: 400,
+        fontWeight: 100,
         fontStyle: 'normal',
         fontVariant: 'normal',
       },

@@ -105,9 +105,9 @@ export const Example: ChartsStory = (_, { title, description }) => {
               return position2 - position1;
             },
             fillLabel: {
-              fontWeight: 200,
+              fontWeight: 100,
               minFontSize: 6,
-              maxFontSize: 16,
+              maxFontSize: 12,
               maximizeFontSize: true,
               fontFamily: 'Helvetica Neue',
               valueFormatter: () => '',

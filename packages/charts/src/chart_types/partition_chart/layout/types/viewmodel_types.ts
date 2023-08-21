@@ -179,7 +179,7 @@ export const nullPartitionSmallMultiplesModel = (
       fontWeight: 'normal',
       fontFamily: 'sans-serif',
       fontStyle: 'normal',
-      textColor: Colors.Black.keyword,
+      textColor: 'Colors.Black.keyword',
     },
   },
 });
