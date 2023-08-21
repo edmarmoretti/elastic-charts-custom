@@ -75,18 +75,6 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
         align = 'left';
       }
     }
-    /*
-    if (overflowConstraints.has(LabelOverflowConstraint.ChartEdges) && isOverflow(rect, renderingArea, rotation)) {
-      return;
-    }
-    */
-   //Remove os labels fora da geometria se a barra for vertical
-    if (rotation !== 90 && overflowConstraints.has(LabelOverflowConstraint.BarGeometry) && overflow) {
-      //return;
-    }
-    //if (overflowConstraints.has(LabelOverflowConstraint.BarGeometry) && overflow) {
-    //  return;
-    //}
 
     //Não mostra o label se estiver fora da largura da barra
     if(rotation >= 0 && bar.displayValue.height > bar.width){
@@ -94,14 +82,20 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     }
     //Edmar Moretti - rotaciona o texto em barras verticais
     let rotacaoLabel = -rotation;
-    if(rotation == 0 && overflow){
+    if(bar.width > bar.displayValue.width && rotation == 0){
+      baseline = 'bottom';
+    }
+    if(rotation == 0 && overflow && (bar.width < bar.displayValue.width)){
       rotacaoLabel = -90;
       align = 'end';
       baseline = 'middle';
       if (isOverflow(rect, renderingArea, 0)) {
         align = 'start';
       }
-    }
+    } 
+
+    //posiciona a base do texto
+
     
     const { width, height, lines } = isValueContainedInElement
       ? wrapLines(ctx, text, font, fontSize, rotation === 0 || rotation === 180 ? bar.width : bar.height, 100)
@@ -114,6 +108,7 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       const fontAugment = { fontSize, align, baseline, shadow: shadowColor, shadowSize };
       withPanelTransform(ctx, panel, rotation, renderingArea, () => {
         //Edmar Moretti - não mostra o label se for zero
+        console.log(textLine + " " + rotation);
         if(parseInt(textLine,10) != 0){
           renderText(ctx, origin, textLine, { ...font, ...fontAugment }, rotacaoLabel, 0, 0, fontScale);
         }
