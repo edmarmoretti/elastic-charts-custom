@@ -14,7 +14,7 @@ import { HorizontalAlignment, Rotation, VerticalAlignment } from '../../../../..
 import { Dimensions } from '../../../../../utils/dimensions';
 import { BarGeometry } from '../../../../../utils/geometry';
 import { BackgroundStyle, TextAlignment, Theme } from '../../../../../utils/themes/theme';
-import { LabelOverflowConstraint } from '../../../utils/specs';
+//import { LabelOverflowConstraint } from '../../../utils/specs';
 import { renderText, wrapLines } from '../primitives/text';
 import { renderDebugRect } from '../utils/debug';
 import { withPanelTransform } from '../utils/panel_transform';
@@ -49,7 +49,7 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       bar.displayValue.isValueContainedInElement = false;
     }
     
-    const { text, fontSize, fontScale, overflowConstraints, isValueContainedInElement } = bar.displayValue;
+    const { text, fontSize, fontScale, isValueContainedInElement } = bar.displayValue;
     
     const shadowSize = getTextBorderSize(fill);
     const { fillColor, shadowColor } = getTextColors(fill, bar.color, background);
