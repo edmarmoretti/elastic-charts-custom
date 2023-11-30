@@ -236,6 +236,7 @@ export interface TooltipSpec<D extends BaseDatum = Datum, SI extends SeriesIdent
  * Configure tooltip for chart
  * @public
  */
+//Edmar Moretti - tradução das ações dos tooltips
 export const tooltipBuildProps = buildSFProps<TooltipSpec>()(
   {
     id: '__global__tooltip___' as const,
@@ -247,12 +248,12 @@ export const tooltipBuildProps = buildSFProps<TooltipSpec>()(
     snap: true,
     showNullValues: false,
     actions: [],
-    actionPrompt: 'Right-click to show actions',
-    pinningPrompt: 'Right-click to pin tooltip',
-    selectionPrompt: 'Please select a series',
-    actionsLoading: 'Loading Actions...',
-    noActionsLoaded: 'No actions available',
-    maxTooltipItems: 10,
+    actionPrompt: 'Clique o botão da direita para ver as ações',
+    pinningPrompt: 'Clique o botão da direita para fixar',
+    selectionPrompt: 'Selecione uma série',
+    actionsLoading: 'Carregando ações...',
+    noActionsLoaded: 'Nenhuma ação disponível',
+    maxTooltipItems: 20,
     maxVisibleTooltipItems: 10,
     header: 'default',
     body: 'default',
