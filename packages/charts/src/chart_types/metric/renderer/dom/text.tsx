@@ -184,7 +184,9 @@ export const MetricText: React.FunctionComponent<{
 
   const visibility = elementVisibility(datum, panel, size, locale);
 
-  const titleWidthMaxSize = size === 's' ? '100%' : '80%';
+  //Edmar Moretti espaçamento do titulo
+  const titleWidthMaxSize = size === 's' ? '100%' : '100%';
+  //const titleWidthMaxSize = size === 's' ? '100%' : '80%';
   const titlesWidth = `min(${titleWidthMaxSize}, calc(${titleWidthMaxSize} - ${datum.icon ? '24px' : '0px'}))`;
 
   const isNumericalMetric = isMetricWNumber(datum);
@@ -193,6 +195,8 @@ export const MetricText: React.FunctionComponent<{
       ? splitNumericSuffixPrefix(datum.valueFormatter(value))
       : [{ emphasis: 'normal', text: style.nonFiniteText }]
     : [{ emphasis: 'normal', text: datum.value }];
+  //Edmar Moretti - remove a limitação do texto
+  /*
   const TitleElement = () => (
     <span
       style={{
@@ -206,6 +210,22 @@ export const MetricText: React.FunctionComponent<{
       {datum.title}
     </span>
   );
+  */
+  const TitleElement = () => (
+    <span
+      style={{
+        fontSize: `${TITLE_FONT_SIZE[size]}px`,
+        whiteSpace: 'pre-wrap',
+        width: titlesWidth,
+        ...lineClamp(10),
+      }}
+      title={datum.title}
+    >
+      {datum.title}
+    </span>
+  );
+  //Edmar Moretti - altera a ordem, colocando a métrica secundária no final
+  /*
   return (
     <div className={containerClassName} style={{ color: highContrastTextColor }}>
       <div>
@@ -245,7 +265,7 @@ export const MetricText: React.FunctionComponent<{
               fontSize: `${SUBTITLE_FONT_SIZE[size]}px`,
               width: titlesWidth,
               whiteSpace: 'pre-wrap',
-              ...lineClamp(visibility.subtitleLines.length),
+              ...lineClamp(10),
             }}
             title={datum.subtitle}
           >
@@ -297,6 +317,103 @@ export const MetricText: React.FunctionComponent<{
               color: datum.valueColor ?? highContrastTextColor,
               verticalAlign: 'middle',
             })}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+  */
+  return (
+    <div className={containerClassName} style={{ color: highContrastTextColor }}>
+      <div>
+        {visibility.title && (
+          <h2 id={id} className="echMetricText__title">
+            {onElementClick ? (
+              <button
+                onMouseDown={(e) => e.stopPropagation()}
+                onMouseUp={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onElementClick();
+                }}
+              >
+                <TitleElement />
+              </button>
+            ) : (
+              <TitleElement />
+            )}
+          </h2>
+        )}
+        {datum.icon && (
+          <div className="echMetricText__icon">
+            {renderWithProps(datum.icon, {
+              width: ICON_SIZE[size],
+              height: ICON_SIZE[size],
+              color: highContrastTextColor,
+            })}
+          </div>
+        )}
+      </div>
+      <div>
+        {visibility.subtitle && (
+          <p
+            className="echMetricText__subtitle"
+            style={{
+              fontSize: `${SUBTITLE_FONT_SIZE[size]}px`,
+              width: titlesWidth,
+              whiteSpace: 'pre-wrap',
+              ...lineClamp(10),
+            }}
+            title={datum.subtitle}
+          >
+            {datum.subtitle}
+          </p>
+        )}
+      </div>
+      <div className="echMetricText__gap"></div>
+      <div>
+        <p
+          className="echMetricText__value"
+          style={{
+            fontSize: `${VALUE_FONT_SIZE[size]}px`,
+            textOverflow: isNumericalMetric ? undefined : 'ellipsis',
+            marginRight: datum.valueIcon ? ICON_SIZE[size] + 8 : undefined,
+            color: datum.valueColor,
+          }}
+          title={textParts.map(({ text }) => text).join('')}
+        >
+          {textParts.map(({ emphasis, text }, i) => {
+            return emphasis === 'small' ? (
+              <span
+                key={`${text}${i}`}
+                className="echMetricText__part"
+                style={{ fontSize: `${VALUE_PART_FONT_SIZE[size]}px` }}
+              >
+                {text}
+              </span>
+            ) : (
+              text
+            );
+          })}
+        </p>
+        {datum.valueIcon && (
+          <p
+            className="echMetricText__valueIcon"
+            style={{ fontSize: `${VALUE_FONT_SIZE[size]}px`, color: datum.valueColor ?? highContrastTextColor }}
+          >
+            {renderWithProps(datum.valueIcon, {
+              width: VALUE_PART_FONT_SIZE[size],
+              height: VALUE_PART_FONT_SIZE[size],
+              color: datum.valueColor ?? highContrastTextColor,
+              verticalAlign: 'middle',
+            })}
+          </p>
+        )}
+      </div>
+      <div>
+        {visibility.extra && (
+          <p className="echMetricText__extra" style={{ fontSize: `${EXTRA_FONT_SIZE[size]}px` }}>
+            {extra}
           </p>
         )}
       </div>

@@ -21,6 +21,10 @@ export const MAX_TIME_TICK_COUNT = 50; // this doesn't do much for narrow charts
 export const MAX_TIME_GRID_COUNT = 12;
 
 /** @internal */
+//Edmar Moretti - locale pt-br
+export const DEFAULT_LOCALE = 'pt-Br';
+
+/** @internal */
 export const MINIMUM_TICK_PIXEL_DISTANCE = 24;
 
 /** @internal */

@@ -87,9 +87,10 @@ export interface TimeslipConfig extends TimeslipTheme, RasterConfig {
 }
 
 /** @internal */
+//Edmar Moretti - locale para gráfico de linha do tempo
 export const rasterConfig: RasterConfig = {
   minimumTickPixelDistance: MINIMUM_TICK_PIXEL_DISTANCE,
-  locale: 'en-US',
+  locale: 'pt-BR',
 };
 
 /** @internal */

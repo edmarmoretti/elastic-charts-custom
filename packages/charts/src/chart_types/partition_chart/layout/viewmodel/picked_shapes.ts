@@ -13,7 +13,8 @@ import { LabelAccessor, ValueFormatter } from '../../../../utils/common';
 import { SpecId } from '../../../../utils/ids';
 import { Point } from '../../../../utils/point';
 import { ContinuousDomainFocus } from '../../renderer/canvas/partition';
-import { MODEL_KEY, percentValueGetter } from '../config';
+//import { MODEL_KEY, percentValueGetter } from '../config';
+import { MODEL_KEY } from '../config';
 import { QuadViewModel, ShapeViewModel } from '../types/viewmodel_types';
 import {
   AGGREGATE_KEY,
@@ -97,7 +98,7 @@ export function pickShapesTooltipValues(
             entryValue(entryNode),
             labelFormatters,
             valueFormatter,
-            percentFormatter,
+            //percentFormatter,
             currentShapeViewModel,
             id,
           ),
@@ -109,7 +110,7 @@ export function pickShapesTooltipValues(
         let node = viewModel[MODEL_KEY];
         while (node[DEPTH_KEY] > 0) {
           values.push(
-            getTooltipValueFromNode(node, labelFormatters, valueFormatter, percentFormatter, currentShapeViewModel, id),
+            getTooltipValueFromNode(node, labelFormatters, valueFormatter, currentShapeViewModel, id),
           );
           node = node[PARENT_KEY];
         }
@@ -122,7 +123,7 @@ function getTooltipValueFromNode(
   node: ArrayNode,
   labelFormatters: (LabelAccessor | undefined)[],
   valueFormatter: ValueFormatter,
-  percentFormatter: ValueFormatter,
+  //percentFormatter: ValueFormatter,
   shapeViewModel: ShapeViewModel,
   id: SpecId,
 ): TooltipValue {
@@ -133,6 +134,8 @@ function getTooltipValueFromNode(
   const model = shapeViewModel.quadViewModel.find(
     (d) => d.depth === depth && d.dataName === dataName && d.value === value,
   );
+  //Edmar Moretti - remove os cálculos em percentual dos gráficos de tipo mosaico
+  /*
   return {
     label: formatter ? formatter(dataName) : dataName,
     color: model?.fillColor ?? 'transparent',
@@ -146,4 +149,19 @@ function getTooltipValueFromNode(
     formattedValue: `${valueFormatter(value)}\u00A0(${percentFormatter(percentValueGetter(node))})`,
     valueAccessor: node[DEPTH_KEY],
   };
+  */
+  return {
+    label: formatter ? formatter(dataName) : dataName,
+    color: model?.fillColor ?? 'transparent',
+    isHighlighted: false,
+    isVisible: true,
+    seriesIdentifier: {
+      specId: id,
+      key: model?.dataName ?? '',
+    },
+    value: node[AGGREGATE_KEY],
+    formattedValue: `${valueFormatter(value)}\u00A0`,
+    valueAccessor: node[DEPTH_KEY],
+  };
+
 }

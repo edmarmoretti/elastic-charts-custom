@@ -14,8 +14,8 @@ import { HorizontalAlignment, Rotation, VerticalAlignment } from '../../../../..
 import { Dimensions } from '../../../../../utils/dimensions';
 import { BarGeometry } from '../../../../../utils/geometry';
 import { BackgroundStyle, TextAlignment, Theme } from '../../../../../utils/themes/theme';
-import { LabelOverflowConstraint } from '../../../utils/specs';
-import { renderText } from '../primitives/text';
+//import { LabelOverflowConstraint } from '../../../utils/specs';
+import { renderText, wrapLines } from '../primitives/text';
 import { renderDebugRect } from '../utils/debug';
 import { withPanelTransform } from '../utils/panel_transform';
 
@@ -44,7 +44,13 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     if (!bar.displayValue) {
       return;
     }
-    const { text, fontSize, fontScale, overflowConstraints } = bar.displayValue;
+    //Edmar Moretti - força a inclusão do label
+    if(rotation == 90){
+      //bar.displayValue.isValueContainedInElement = false;
+    }
+    
+    const { text, fontSize, fontScale } = bar.displayValue;
+    
     const shadowSize = getTextBorderSize(fill);
     const { fillColor, shadowColor } = getTextColors(fill, bar.color, background);
     const font: Font = {
@@ -55,7 +61,7 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       textColor: fillColor,
     };
 
-    const { x, y, align, baseline, rect, overflow } = positionText(
+    var { x, y, align, baseline, rect, overflow } = positionText(
       bar,
       bar.displayValue,
       rotation,
@@ -63,23 +69,49 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       alignment,
     );
 
-    if (overflowConstraints.has(LabelOverflowConstraint.ChartEdges) && isOverflow(rect, renderingArea, rotation)) {
+    // Edmar Moretti - força a renderizar textos que estejam fora da geometria
+    if (isOverflow(rect, renderingArea, rotation)) {
+      if(rotation == 90){
+        align = 'left';
+      }
+    }
+
+    //Não mostra o label se estiver fora da largura da barra
+    if(rotation >= 0 && bar.displayValue.height > bar.width){
       return;
     }
-    if (overflowConstraints.has(LabelOverflowConstraint.BarGeometry) && overflow) {
-      return;
+    //Edmar Moretti - rotaciona o texto em barras verticais
+    let rotacaoLabel = -rotation;
+    if(bar.width > bar.displayValue.width && rotation == 0){
+      baseline = 'bottom';
     }
-    const lines = [text];
-    const { width, height } = bar.displayValue;
+    if(rotation == 0 && overflow && (bar.width < bar.displayValue.width)){
+      rotacaoLabel = -90;
+      align = 'end';
+      baseline = 'middle';
+      if (isOverflow(rect, renderingArea, 0)) {
+        align = 'start';
+      }
+    } 
+
+    //posiciona a base do texto
+
+    
+    const { width, height, lines } = false
+      ? wrapLines(ctx, text, font, fontSize, rotation === 0 || rotation === 180 ? bar.width : bar.height, 100)
+      : { lines: [text], width: bar.displayValue.width, height: bar.displayValue.height };
 
     if (debug) withPanelTransform(ctx, panel, rotation, renderingArea, () => renderDebugRect(ctx, rect));
 
     lines.forEach((textLine, j) => {
       const origin = lineOrigin(x, y, rotation, j, lines.length, width, height);
       const fontAugment = { fontSize, align, baseline, shadow: shadowColor, shadowSize };
-      withPanelTransform(ctx, panel, rotation, renderingArea, () =>
-        renderText(ctx, origin, textLine, { ...font, ...fontAugment }, -rotation, 0, 0, fontScale),
-      );
+      withPanelTransform(ctx, panel, rotation, renderingArea, () => {
+        //Edmar Moretti - não mostra o label se for zero
+        if(textLine*1 != 0){
+          renderText(ctx, origin, textLine, { ...font, ...fontAugment }, rotacaoLabel, 0, 0, fontScale);
+        }
+      });
     });
   });
 }
@@ -185,7 +217,9 @@ function isOverflow(rect: Rect, chartDimensions: Dimensions, chartRotation: Rota
   const vertical = Math.abs(chartRotation) === 90;
   const cWidth = vertical ? chartDimensions.height : chartDimensions.width;
   const cHeight = vertical ? chartDimensions.width : chartDimensions.height;
-  return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height > cHeight;
+  //Edmar Moretti - aumenta o fator que determina se o texto está dentro do gráfico
+  return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height + 18 > cHeight;
+  //return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height > cHeight;
 }
 
 type ValueFillDefinition = Theme['barSeriesStyle']['displayValue']['fill'];
