@@ -146,13 +146,13 @@ export const LIGHT_THEME: Theme = {
     },
     axisPanelTitle: {
       visible: true,
-      fontSize: 10,
+      fontSize: 12,
       fontFamily: 'sans-serif',
       padding: {
         inner: 8,
         outer: 0,
       },
-      fill: '#B8B8B8',
+      fill: '#333',
     },
     axisLine: {
       visible: true,

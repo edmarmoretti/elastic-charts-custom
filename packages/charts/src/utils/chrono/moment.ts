@@ -7,7 +7,7 @@
  */
 
 import moment from 'moment-timezone';
-
+moment.locale('pt-br');
 import { CalendarIntervalUnit, CalendarObj, DateTime, FixedIntervalUnit, Minutes, UnixTimestamp } from './types';
 
 /** @internal */

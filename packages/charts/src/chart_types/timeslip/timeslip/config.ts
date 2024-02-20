@@ -90,7 +90,7 @@ export interface TimeslipConfig extends TimeslipTheme, RasterConfig {
 //Edmar Moretti - locale para gráfico de linha do tempo
 export const rasterConfig: RasterConfig = {
   minimumTickPixelDistance: MINIMUM_TICK_PIXEL_DISTANCE,
-  locale: 'pt-BR',
+  locale: 'pt-br',
 };
 
 /** @internal */
@@ -142,7 +142,7 @@ export const localeOptions: LocaleOptions = {
   second: '2-digit',
 };
 
-const defaultLabelFormatter = new Intl.DateTimeFormat(config.locale, {
+const defaultLabelFormatter = new Intl.DateTimeFormat('pt-br', {
   weekday: 'short',
   hour: 'numeric',
   minute: 'numeric',
@@ -154,7 +154,7 @@ const defaultLabelFormatter = new Intl.DateTimeFormat(config.locale, {
  */
 export const defaultLabelFormat: TimeFormatter = (value) => defaultLabelFormatter.format(value);
 
-const defaultMinorTickLabelFormatter = new Intl.DateTimeFormat(config.locale, {
+const defaultMinorTickLabelFormatter = new Intl.DateTimeFormat('pt-br', {
   weekday: 'short',
   hour: 'numeric',
   minute: 'numeric',

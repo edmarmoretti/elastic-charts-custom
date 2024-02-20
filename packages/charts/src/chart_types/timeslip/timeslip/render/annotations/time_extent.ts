@@ -25,9 +25,9 @@ export function renderTimeExtentAnnotation(
   ctx.fillStyle = config.subduedFontColor;
   // todo switch to new Intl.DateTimeFormat for more performance https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
   ctx.fillText(
-    `${new Date(domainFrom * 1000).toLocaleString(config.locale, localeOptions)} — ${new Date(
+    `${new Date(domainFrom * 1000).toLocaleString('pt-br', localeOptions)} — ${new Date(
       domainTo * 1000,
-    ).toLocaleString(config.locale, localeOptions)}`,
+    ).toLocaleString('pt-br', localeOptions)}`,
     cartesianWidth,
     yOffset,
   );

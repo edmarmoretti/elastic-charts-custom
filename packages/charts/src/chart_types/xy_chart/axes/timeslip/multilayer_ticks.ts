@@ -22,7 +22,7 @@ export const MAX_TIME_GRID_COUNT = 12;
 
 /** @internal */
 //Edmar Moretti - locale pt-br
-export const DEFAULT_LOCALE = 'pt-Br';
+export const DEFAULT_LOCALE = 'pt-br';
 
 /** @internal */
 export const MINIMUM_TICK_PIXEL_DISTANCE = 24;

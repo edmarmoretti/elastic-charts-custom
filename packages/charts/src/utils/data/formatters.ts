@@ -7,7 +7,7 @@
  */
 
 import moment from 'moment-timezone';
-
+moment.locale('pt-br');
 import { getMomentWithTz } from './date_time';
 import { TickFormatter, TickFormatterOptions } from '../../chart_types/xy_chart/utils/specs';
 
@@ -28,7 +28,7 @@ export function niceTimeFormatter(domain: [number, number]): TickFormatter {
 
 /** @public */
 export function niceTimeFormatByDay(days: number) {
-  if (days > 30) return 'YYYY-MM-DD';
+  if (days > 30) return 'DD-MM-YYYY';
   if (days > 7) return 'MMMM DD';
   if (days > 1) return 'MM-DD HH:mm';
   return 'HH:mm:ss';

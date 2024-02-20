@@ -3188,9 +3188,9 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/eui@../eui/elastic-eui-88.5.0-ms-2.tgz":
-  version "88.5.0-ms-2"
-  resolved "../eui/elastic-eui-88.5.0-ms-2.tgz#58e00150223b59532a6bb21b8bbe533d707ed78c"
+"@elastic/eui@../eui/elastic-eui-88.5.0-ms-4.tgz":
+  version "88.5.0-ms-4"
+  resolved "../eui/elastic-eui-88.5.0-ms-4.tgz#49806003aee15ed5d69c74b8b59b36ffb6bac37d"
   dependencies:
     "@hello-pangea/dnd" "^16.3.0"
     "@types/lodash" "^4.14.198"

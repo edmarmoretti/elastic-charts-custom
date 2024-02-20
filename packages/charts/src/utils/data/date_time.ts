@@ -7,7 +7,7 @@
  */
 
 import moment from 'moment-timezone';
-
+moment.locale('pt-br');
 /** @internal */
 export function getMomentWithTz(date: number | Date, timeZone?: string) {
   if (timeZone === 'local' || !timeZone) {

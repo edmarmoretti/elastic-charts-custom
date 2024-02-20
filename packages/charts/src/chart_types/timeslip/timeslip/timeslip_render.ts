@@ -118,7 +118,7 @@ const rasterSelector =
   HORIZONTAL_AXIS === 'continuousTime' ? continuousTimeRasters(rasterConfig, timeZone) : numericalRasters(rasterConfig);
 
 const yTickNumberFormatter = new Intl.NumberFormat(
-  config.locale,
+  'pt-br',
   config.numUnit === 'none'
     ? {}
     : {
