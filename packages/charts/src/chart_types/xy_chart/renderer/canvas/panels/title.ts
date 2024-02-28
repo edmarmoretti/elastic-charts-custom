@@ -66,7 +66,7 @@ export function renderTitle(
       : tickDimension + labelSize + innerPad(titlePadding) + (panel ? 0 : otherTitleDimension);
 
 
-
+//if(panel){return;}
 
   //Edmar Moretti - posiciona o título no início
   /*
@@ -105,6 +105,7 @@ export function renderTitle(
   if(titleToRender){
     titleClean = titleToRender.replace('filters','');
   }
+
   const wrappedText = wrapText(
     titleClean ?? '',
     font,

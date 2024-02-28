@@ -131,7 +131,8 @@ export function computeSeriesDomains(
     smallMultiples,
   );
   // compute the x domain merging any custom domain
-  const xDomain = mergeXDomain(scaleConfigs.x, xValues, locale, fallbackScale);
+  // Edmar Moretti - altera o locale para PT-BR
+  const xDomain = mergeXDomain(scaleConfigs.x, xValues, 'pt-BR', fallbackScale);
 
   // fill series with missing x values
   const filledDataSeries = fillSeries(dataSeries, xValues, xDomain.type);
@@ -179,7 +180,6 @@ if(formattedDataSeries[0]?.smVerticalAccessorValue || formattedDataSeries[0]?.sm
 }
 
 // fim
-
 
   return {
     xDomain,

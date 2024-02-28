@@ -196,6 +196,12 @@ export class LegendListItem extends Component<LegendItemProps, LegendItemState> 
       : {
           [isMostlyRTL ? 'marginRight' : 'marginLeft']: LEGEND_HIERARCHY_MARGIN * (item.depth ?? 0),
         };
+    //Edmar Moretti - esconde o ícone de cor se se só existir um item na legenda
+    let showSymbol = true;
+    if(totalItems == 1){
+      showSymbol = false;
+    };
+
     return (
       <>
         <li
@@ -207,6 +213,7 @@ export class LegendListItem extends Component<LegendItemProps, LegendItemState> 
           data-ech-series-name={label}
         >
           <div className="background" />
+          {showSymbol && (
           <div className="colorWrapper">
             <ItemColor
               ref={this.colorRef}
@@ -218,6 +225,7 @@ export class LegendListItem extends Component<LegendItemProps, LegendItemState> 
               pointStyle={pointStyle}
             />
           </div>
+          )}
           <ItemLabel
             label={label}
             options={labelOptions}

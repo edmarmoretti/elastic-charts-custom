@@ -141,6 +141,7 @@ export const DEFAULT_LEGEND_CONFIG = {
 };
 
 /** @public */
+//Edmar Moretti: altera o locale para pt-BR
 export const settingsBuildProps = buildSFProps<SettingsSpec>()(
   {
     id: '__global__settings___' as const,
@@ -167,7 +168,7 @@ export const settingsBuildProps = buildSFProps<SettingsSpec>()(
     allowBrushingLastHistogramBin: true,
     pointBuffer: 10,
     ...DEFAULT_LEGEND_CONFIG,
-    locale: 'en-US',
+    locale: 'pt-BR',
   },
 );
 

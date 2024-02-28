@@ -366,7 +366,7 @@ export const LIGHT_THEME: Theme = {
     yAxisLabel: {
       visible: true,
       width: 'auto',
-      fontSize: 12,
+      fontSize: 10,
       fontFamily: 'Sans-Serif',
       fontStyle: 'normal',
       textColor: Colors.Black.keyword,

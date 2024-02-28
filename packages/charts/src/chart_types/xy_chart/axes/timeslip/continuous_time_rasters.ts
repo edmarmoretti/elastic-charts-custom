@@ -240,8 +240,8 @@ export const continuousTimeRasters = ({ minimumTickPixelDistance, locale }: Rast
         };
       }
     },
-    detailedLabelFormat: new Intl.DateTimeFormat(locale, { year: 'numeric', timeZone }).format,
-    minorTickLabelFormat: new Intl.DateTimeFormat(locale, { year: 'numeric', timeZone }).format,
+    detailedLabelFormat: new Intl.DateTimeFormat('pt-br', { year: 'numeric', timeZone }).format,
+    minorTickLabelFormat: new Intl.DateTimeFormat('pt-br', { year: 'numeric', timeZone }).format,
   };
   const decadesUnlabelled: YearsAxisLayer = {
     ...decades,
@@ -254,12 +254,12 @@ export const continuousTimeRasters = ({ minimumTickPixelDistance, locale }: Rast
     labeled: true,
     minimumTickPixelDistance: minimumTickPixelDistance * 3.6, // wow some Greek names are long
     intervals: monthBasedIntervals(years, timeZone, 1),
-    detailedLabelFormat: new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', timeZone }).format,
-    minorTickLabelFormat: new Intl.DateTimeFormat(locale, { month: 'long', timeZone }).format,
+    detailedLabelFormat: new Intl.DateTimeFormat('pt-br', { year: 'numeric', month: 'long', timeZone }).format,
+    minorTickLabelFormat: new Intl.DateTimeFormat('pt-br', { month: 'long', timeZone }).format,
   };
   const shortMonths = {
     ...months,
-    minorTickLabelFormat: new Intl.DateTimeFormat(locale, { month: 'short', timeZone }).format,
+    minorTickLabelFormat: new Intl.DateTimeFormat('pt-br', { month: 'short', timeZone }).format,
     minimumTickPixelDistance: minimumTickPixelDistance * 2,
   };
   const quarters: AxisLayer<Interval & { year: number; month: number }> = {
