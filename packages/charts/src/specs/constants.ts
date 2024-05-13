@@ -166,7 +166,7 @@ export const settingsBuildProps = buildSFProps<SettingsSpec>()(
     allowBrushingLastHistogramBin: true,
     pointBuffer: 10,
     ...DEFAULT_LEGEND_CONFIG,
-    locale: 'en-US',
+    locale: 'pt-BR',
   },
 );
 

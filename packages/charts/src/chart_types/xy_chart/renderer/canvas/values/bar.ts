@@ -77,9 +77,12 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     lines.forEach((textLine, j) => {
       const origin = lineOrigin(x, y, rotation, j, lines.length, width, height);
       const fontAugment = { fontSize, align, baseline, shadow: shadowColor, shadowSize };
-      withPanelTransform(ctx, panel, rotation, renderingArea, () =>
-        renderText(ctx, origin, textLine, { ...font, ...fontAugment }, -rotation, 0, 0, fontScale),
-      );
+      withPanelTransform(ctx, panel, rotation, renderingArea, () => {
+        //Edmar Moretti - não mostra o label se for zero
+        if(textLine*1 != 0){  
+          renderText(ctx, origin, textLine, { ...font, ...fontAugment }, -rotation, 0, 0, fontScale);
+        }
+    });
     });
   });
 }

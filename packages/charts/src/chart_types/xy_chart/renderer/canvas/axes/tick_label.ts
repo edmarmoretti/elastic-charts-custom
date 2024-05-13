@@ -49,6 +49,27 @@ export function renderTickLabel(
 
   const tickOnTheSide = timeAxisLayerCount > 0 && Number.isFinite(tick.layer);
 
+  // Edmar Moretti - remoção do ,00 dos labels dos eixos
+  if(tick.label.substring(tick.label.length-3,tick.label.length) == ",00"){
+    tick.label = tick.label.substring(0,tick.label.length-3);
+  }
+  else if(tick.label.substring(tick.label.length-4,tick.label.length) == ",00%"){
+    tick.label = tick.label.substring(0,tick.label.length-4)+"%";
+  }
+  else if(tick.label.substring(tick.label.length-6,tick.label.length) == ",00mil"){
+    tick.label = tick.label.substring(0,tick.label.length-6)+"mil";
+  }
+  else if(tick.label.substring(tick.label.length-5,tick.label.length) == ",00mi"){
+    tick.label = tick.label.substring(0,tick.label.length-5)+"mi";
+  }
+  else if(tick.label.substring(tick.label.length-5,tick.label.length) == ",00bi"){
+    tick.label = tick.label.substring(0,tick.label.length-5)+"bi";
+  }
+  else if(tick.label.substring(tick.label.length-6,tick.label.length) == ",00tri"){
+    tick.label = tick.label.substring(0,tick.label.length-5)+"tri";
+  }
+  
+  //
   renderText(
     ctx,
     center,
