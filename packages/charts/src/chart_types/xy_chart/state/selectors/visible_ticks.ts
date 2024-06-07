@@ -151,6 +151,8 @@ function getVisibleTicks(
 
   const { showOverlappingTicks, showOverlappingLabels, position } = axisSpec;
   const requiredSpace = isVerticalAxis(position) ? labelBox.maxLabelBboxHeight / 2 : labelBox.maxLabelBboxWidth / 2;
+  //console.log(requiredSpace);
+  //Edmar Moretti - aqui é onde é calculado se um label se sobrepõe e se deve ser mostrado ou não
   const bypassOverlapCheck = showOverlappingLabels || isMultilayerTimeAxis;
   return bypassOverlapCheck
     ? allTicks
@@ -249,6 +251,7 @@ function getVisibleTickSets(
           labelFormatter: AxisLabelFormatter,
           showGrid = true,
         ): Projection => {
+
           const labelBox = getLabelBox(axesStyle, ticks, labelFormatter, textMeasure, axisSpec, gridLine);
           return {
             ticks: getVisibleTickSet(

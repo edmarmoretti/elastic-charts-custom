@@ -14,7 +14,7 @@ import { HorizontalAlignment, Rotation, VerticalAlignment } from '../../../../..
 import { Dimensions } from '../../../../../utils/dimensions';
 import { BarGeometry } from '../../../../../utils/geometry';
 import { BackgroundStyle, TextAlignment, Theme } from '../../../../../utils/themes/theme';
-import { LabelOverflowConstraint } from '../../../utils/specs';
+//import { LabelOverflowConstraint } from '../../../utils/specs';
 import { renderText } from '../primitives/text';
 import { renderDebugRect } from '../utils/debug';
 import { withPanelTransform } from '../utils/panel_transform';
@@ -44,7 +44,12 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     if (!bar.displayValue) {
       return;
     }
-    const { text, fontSize, fontScale, overflowConstraints } = bar.displayValue;
+    //Edmar Moretti - força a inclusão do label em barras horizontais
+    if(rotation == 90){
+      //bar.displayValue.isValueContainedInElement = false;
+    }
+
+    const { text, fontSize, fontScale } = bar.displayValue;
     const shadowSize = getTextBorderSize(fill);
     const { fillColor, shadowColor } = getTextColors(fill, bar.color, background);
     const font: Font = {
@@ -55,20 +60,27 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       textColor: fillColor,
     };
 
-    const { x, y, align, baseline, rect, overflow } = positionText(
+    var { x, y, align, baseline, rect } = positionText(
       bar,
       bar.displayValue,
       rotation,
       barSeriesStyle.displayValue,
+      renderingArea,
       alignment,
     );
 
-    if (overflowConstraints.has(LabelOverflowConstraint.ChartEdges) && isOverflow(rect, renderingArea, rotation)) {
+    // Edmar Moretti - força a renderizar textos que estejam fora da geometria
+    if (isOverflow(rect, renderingArea, rotation)) {
+      if(rotation == 90){
+        align = 'left';
+      }
+    }
+
+    //Não mostra o label se estiver fora da largura da barra
+    if(rotation >= 0 && bar.displayValue.height > bar.width){
       return;
     }
-    if (overflowConstraints.has(LabelOverflowConstraint.BarGeometry) && overflow) {
-      return;
-    }
+
     const lines = [text];
     const { width, height } = bar.displayValue;
 
@@ -98,6 +110,7 @@ function positionText(
   valueBox: { width: number; height: number },
   chartRotation: Rotation,
   offsets: { offsetX: number; offsetY: number },
+  renderingArea: Dimensions,
   alignment?: TextAlignment,
 ): { x: number; y: number; align: TextAlign; baseline: TextBaseline; rect: Rect; overflow: boolean } {
   const { offsetX, offsetY } = offsets;
@@ -145,12 +158,6 @@ function positionText(
       return { x, y, rect, align: 'left', baseline: 'top', overflow: verticalOverflow };
     }
     case CHART_DIRECTION.LeftToRight: {
-      const alignmentOffsetX =
-        horizontal === HorizontalAlignment.Left
-          ? geom.height - valueBox.width
-          : horizontal === HorizontalAlignment.Center
-            ? geom.height / 2 - valueBox.width / 2
-            : 0;
       const alignmentOffsetY =
         vertical === VerticalAlignment.Bottom
           ? geom.width - valueBox.height
@@ -158,7 +165,7 @@ function positionText(
             ? geom.width / 2 - valueBox.height / 2
             : 0;
       const x = geom.x - offsetY + alignmentOffsetY;
-      const y = geom.y + offsetX + alignmentOffsetX;
+      const y = geom.y + 1;
       const rect = { x, y, width: valueBox.height, height: valueBox.width };
       return { x, y, rect, align: 'right', baseline: 'top', overflow: verticalOverflow };
     }
@@ -168,17 +175,16 @@ function positionText(
         horizontal === HorizontalAlignment.Left
           ? -geom.width / 2 + valueBox.width / 2
           : horizontal === HorizontalAlignment.Right
-            ? geom.width / 2 - valueBox.width / 2
-            : 0;
-      const alignmentOffsetY =
-        vertical === VerticalAlignment.Bottom
-          ? geom.height - valueBox.height
-          : vertical === VerticalAlignment.Middle
-            ? geom.height / 2 - valueBox.height / 2
-            : 0;
-      const x = geom.x + geom.width / 2 - offsetX + alignmentOffsetX;
-      const y = geom.y - offsetY + alignmentOffsetY;
+          ? geom.width / 2 - valueBox.width / 2
+          : 0;
+
+          const x = geom.x + geom.width / 2 - offsetX + alignmentOffsetX;
+      //Edmar Moretti - posiciona o texto das barras verticais
+      let y = geom.y - valueBox.height;
       const rect = { x: x - valueBox.width / 2, y, width: valueBox.width, height: valueBox.height };
+      if (isOverflow(rect, renderingArea, 0)) {
+        y = geom.y + valueBox.height;
+      }
       return { x, y, rect, align: 'center', baseline: 'top', overflow: horizontalOverflow };
     }
   }

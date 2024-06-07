@@ -149,13 +149,13 @@ function elementVisibility(
     };
   });
 }
-
+//Edmar Moretti - aumenta o número de linhas que é utilizado para quebrar os textos e incluir os ...
 function lineClamp(maxLines: number): CSSProperties {
   return {
     textOverflow: 'ellipsis',
     display: '-webkit-box',
-    WebkitLineClamp: maxLines, // due to an issue with react CSSProperties filtering out this line, see https://github.com/facebook/react/issues/23033
-    lineClamp: maxLines,
+    WebkitLineClamp: maxLines + 3, // due to an issue with react CSSProperties filtering out this line, see https://github.com/facebook/react/issues/23033
+    lineClamp: maxLines + 3,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
   };
