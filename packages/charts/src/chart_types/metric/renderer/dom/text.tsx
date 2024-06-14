@@ -149,13 +149,13 @@ function elementVisibility(
     };
   });
 }
-
+//Edmar Moretti - aumenta o número de linhas que é utilizado para quebrar os textos e incluir os ...
 function lineClamp(maxLines: number): CSSProperties {
   return {
     textOverflow: 'ellipsis',
     display: '-webkit-box',
-    WebkitLineClamp: maxLines, // due to an issue with react CSSProperties filtering out this line, see https://github.com/facebook/react/issues/23033
-    lineClamp: maxLines,
+    WebkitLineClamp: maxLines + 3, // due to an issue with react CSSProperties filtering out this line, see https://github.com/facebook/react/issues/23033
+    lineClamp: maxLines + 3,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
   };
@@ -172,8 +172,20 @@ export const MetricText: React.FunctionComponent<{
   progressBarSize: 'small';
   locale: string;
 }> = ({ id, datum, panel, style, onElementClick, highContrastTextColor, progressBarSize, locale }) => {
-  const { extra, value, body } = datum;
+  //const { extra, value, body } = datum;
+  //Edmar Moretti - replace de milhões por mi
+  let { extra, value, body } = datum;
 
+  if(typeof value != 'number'){
+    value = value.replace("milhões","mi");
+    datum.value = value;
+  }
+  /*
+  if(typeof extra != 'number'){
+    extra = extra.replace("milhões","mi");
+    datum.extra = extra;
+  }
+  */
   const size = findRange(WIDTH_BP, panel.width);
   const hasProgressBar = isMetricWProgress(datum);
   const progressBarDirection = isMetricWProgress(datum) ? datum.progressBarDirection : undefined;
@@ -185,7 +197,9 @@ export const MetricText: React.FunctionComponent<{
 
   const visibility = elementVisibility(datum, panel, size, locale);
 
-  const titleWidthMaxSize = size === 's' ? '100%' : '80%';
+  //Edmar Moretti espaçamento do titulo
+  const titleWidthMaxSize = size === 's' ? '100%' : '100%';
+  //const titleWidthMaxSize = size === 's' ? '100%' : '80%';
   const titlesWidth = `min(${titleWidthMaxSize}, calc(${titleWidthMaxSize} - ${datum.icon ? '24px' : '0px'}))`;
 
   const isNumericalMetric = isMetricWNumber(datum);
@@ -255,13 +269,7 @@ export const MetricText: React.FunctionComponent<{
         )}
       </div>
       <div className="echMetricText__gap">{body && <div className="echMetricText__body">{body}</div>}</div>
-      <div>
-        {visibility.extra && (
-          <p className="echMetricText__extra" style={{ fontSize: `${EXTRA_FONT_SIZE[size]}px` }}>
-            {extra}
-          </p>
-        )}
-      </div>
+
       <div>
         <p
           className="echMetricText__value"
@@ -298,6 +306,13 @@ export const MetricText: React.FunctionComponent<{
               color: datum.valueColor ?? highContrastTextColor,
               verticalAlign: 'middle',
             })}
+          </p>
+        )}
+      </div>
+      <div>
+        {visibility.extra && (
+          <p className="echMetricText__extra" style={{ fontSize: `${EXTRA_FONT_SIZE[size]}px` }}>
+            {extra}
           </p>
         )}
       </div>

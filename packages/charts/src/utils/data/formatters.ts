@@ -28,8 +28,8 @@ export function niceTimeFormatter(domain: [number, number]): TickFormatter {
 
 /** @public */
 export function niceTimeFormatByDay(days: number) {
-  if (days > 30) return 'YYYY-MM-DD';
-  if (days > 7) return 'MMMM DD';
-  if (days > 1) return 'MM-DD HH:mm';
+  if (days > 30) return 'DD/MM/YYYY';
+  if (days > 7) return 'DD/MMMM';
+  if (days > 1) return 'DD/MM HH:mm';
   return 'HH:mm:ss';
 }

@@ -197,7 +197,26 @@ export const TooltipComponent = <D extends BaseDatum = Datum, SI extends SeriesI
       type: 'custom',
       cell: ({ formattedValue }) => (
         <span className="echTooltip__value" dir="ltr">
-          {formattedValue}
+          {
+            //Edmar Moretti remove ,00 do tooltip
+            //formattedValue
+            formattedValue.substring(formattedValue.length-3,formattedValue.length) == ",00" ?
+            formattedValue.substring(0,formattedValue.length-3) : (
+              formattedValue.substring(formattedValue.length-4,formattedValue.length) == ",00%" ?
+              formattedValue = formattedValue.substring(0,formattedValue.length-4)+"%" : (
+                formattedValue.substring(formattedValue.length-6,formattedValue.length) == ",00mil" ? 
+                formattedValue = formattedValue.substring(0,formattedValue.length-6)+"mil" : (
+                  formattedValue.substring(formattedValue.length-5,formattedValue.length) == ",00mi" ?
+                  formattedValue = formattedValue.substring(0,formattedValue.length-5)+"mi" : (
+                    formattedValue.substring(formattedValue.length-5,formattedValue.length) == ",00bi" ?
+                    formattedValue = formattedValue.substring(0,formattedValue.length-5)+"bi" : (
+                      formattedValue.substring(formattedValue.length-6,formattedValue.length) == ",00tri" ?
+                      formattedValue = formattedValue.substring(0,formattedValue.length-5)+"tri" : formattedValue)))))
+
+             //formattedValue.substring(0,2) !== "R$" && formattedValue.substring(formattedValue.length - 3, formattedValue.length) == ",00" ?
+             //formattedValue.substring(0, formattedValue.length - 3) : 
+             //( formattedValue.substring(0,2) == "R$" && formattedValue.split(',')[1] == undefined ? formattedValue + ',00': formattedValue)
+          }
         </span>
       ),
       // truncation is fine for values  due to the grid configuration: label-value  as auto-auto.
