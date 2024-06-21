@@ -40,7 +40,10 @@ const CHART_DIRECTION: Record<string, Rotation> = {
 export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesProps) {
   const { bars, debug, rotation, renderingArea, barSeriesStyle, panel, background } = props;
   const { fontFamily, fontStyle, fill, alignment } = barSeriesStyle.displayValue;
-  bars.forEach((bar) => {
+  //Essa variável guarda os valores do label anterior
+  let rectAnterior = {x: 0,y: 0,width:0,height:0};
+  //
+  bars.forEach((bar,k) => {
     if (!bar.displayValue) {
       return;
     }
@@ -77,7 +80,7 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     }
 
     //Não mostra o label se estiver fora da largura da barra
-    if(rotation >= 0 && bar.displayValue.height > bar.width){
+    if(rotation >= 0 && bar.displayValue.width > (bar.width + bar.width/2)){
       return;
     }
 
@@ -87,6 +90,14 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     if (debug) withPanelTransform(ctx, panel, rotation, renderingArea, () => renderDebugRect(ctx, rect));
 
     lines.forEach((textLine, j) => {
+      //Edmar Moretti - verifica se os exos estão se sobrepondo
+      if(k > 0){
+        if(isOverlap(rect,rectAnterior)){
+          y = y + rect.height;
+        }
+        rectAnterior = rect;
+        rectAnterior.y = y;
+      }
       const origin = lineOrigin(x, y, rotation, j, lines.length, width, height);
       const fontAugment = { fontSize, align, baseline, shadow: shadowColor, shadowSize };
       withPanelTransform(ctx, panel, rotation, renderingArea, () => {
@@ -179,12 +190,9 @@ function positionText(
           : 0;
 
           const x = geom.x + geom.width / 2 - offsetX + alignmentOffsetX;
-      //Edmar Moretti - posiciona o texto das barras verticais
+      //Edmar Moretti - posiciona o texto das barras verticais fora das barras
       let y = geom.y - valueBox.height;
       const rect = { x: x - valueBox.width / 2, y, width: valueBox.width, height: valueBox.height };
-      if (isOverflow(rect, renderingArea, 0)) {
-        y = geom.y + valueBox.height;
-      }
       return { x, y, rect, align: 'center', baseline: 'top', overflow: horizontalOverflow };
     }
   }
@@ -195,6 +203,16 @@ function isOverflow(rect: Rect, chartDimensions: Dimensions, chartRotation: Rota
   const cWidth = vertical ? chartDimensions.height : chartDimensions.width;
   const cHeight = vertical ? chartDimensions.width : chartDimensions.height;
   return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height > cHeight;
+}
+
+//Edmar Moretti - função para identificar se os textos se sobrepõem
+function isOverlap(r1: Rect,r2: Rect){
+  //xmin,ymin,xmax,ymax
+  //Math.min(r1[2], r2[2]) > Math.max(r1[0], r2[0]);
+  let wOverlap = Math.min(r1.x + r1.width,r2.x + r2.width) >= Math.max(r1.x,r2.x);
+  //Math.min(rec1[3], rec2[3]) > Math.max(rec1[1], rec2[1]);
+  let hOverlap = Math.min(r1.y + r1.height, r2.y + r2.height) >= Math.max(r1.y, r2.y);
+  return wOverlap && hOverlap;
 }
 
 type ValueFillDefinition = Theme['barSeriesStyle']['displayValue']['fill'];

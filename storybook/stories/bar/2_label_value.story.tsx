@@ -28,7 +28,7 @@ import { customKnobs } from '../utils/knobs';
 
 const dataGen = new SeededDataGenerator();
 function generateDataWithAdditional(num: number) {
-  return [...dataGen.generateSimpleSeries(num), { x: num, y: 0.25, g: 0 }, { x: num + 1, y: 8, g: 0 }];
+  return [...dataGen.generateSimpleSeries(num), { x: num, y: 1000, g: 0 }, { x: num + 1, y: 8, g: 0 }];
 }
 const frozenDataSmallVolume = generateDataWithAdditional(5);
 const frozenDataMediumVolume = generateDataWithAdditional(30);
@@ -41,7 +41,7 @@ const frozenData: { [key: string]: any[] } = {
 };
 
 export const Example: ChartsStory = (_, { title, description }) => {
-  const singleSeries = boolean('show single series', false);
+  const singleSeries = boolean('show single series', true);
   const showValueLabel = boolean('show value label', true);
   const isAlternatingValueLabel = boolean('alternating value label', false);
   const overflowChartEdges = boolean('hide label if overflows chart edges', false);
@@ -84,8 +84,19 @@ export const Example: ChartsStory = (_, { title, description }) => {
     },
     's',
   );
-  const data = frozenData[dataSize];
-
+  //const data = frozenData[dataSize];
+  const data = [
+    { x: 0, y: 200000 },
+    { x: 1, y: 7000000 },
+    { x: 2, y: 7000000 },
+    { x: 3, y: 4000000 },
+    { x: 4, y: 4000000 },
+    { x: 5, y: 4001000 },
+    { x: 6, y: 4001050 },
+    { x: 7, y: 60000 },
+    { x: 8, y: 100 },
+  ];
+  
   const isSplitSeries = boolean('split series', false);
   const isStackedSeries = boolean('stacked series', false);
 
