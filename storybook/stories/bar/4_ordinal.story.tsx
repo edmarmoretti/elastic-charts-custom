@@ -26,10 +26,12 @@ export const Example: ChartsStory = (_, { title, description }) => (
       xAccessor="x"
       yAccessors={['y']}
       data={[
-        { x: 'a', y: 2 },
-        { x: 'b', y: 7 },
-        { x: 'c', y: 3 },
-        { x: 'd', y: 6 },
+        { x: '1900', y: 2 },
+        { x: '1910', y: 7 },
+        { x: '1920', y: 3 },
+        { x: '1930', y: 6 },
+        { x: '1940', y: 6 },
+        { x: '1950', y: 6 },
       ]}
     />
   </Chart>

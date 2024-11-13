@@ -29,7 +29,7 @@ export const Example: ChartsStory = (_, { title, description }) => {
     [6, 1],
     [7, 0],
     [8, 1],
-    [9, 0],
+    [20, 0],
   ];
   return (
     <Chart title={title} description={description}>
@@ -38,8 +38,8 @@ export const Example: ChartsStory = (_, { title, description }) => {
       <Axis id="left" title="Left" position={Position.Left} />
       <BarSeries
         id="bars"
-        xScaleType={ScaleType.Linear}
-        yScaleType={yScaleType}
+        xScaleType={ScaleType.Ordinal}
+        yScaleType={ScaleType.Linear}
         xAccessor={0}
         yAccessors={[1]}
         data={data}

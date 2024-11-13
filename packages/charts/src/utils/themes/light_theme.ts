@@ -15,7 +15,7 @@ import { Colors } from '../../common/colors';
 import { TAU } from '../../common/constants';
 import { DEFAULT_FONT_FAMILY } from '../../common/default_theme_attributes';
 import { ColorVariant } from '../common';
-
+//Edmar Moretti - altera para maxFontSize: 12, a config de gráficos do tipo mosaic
 /** @public */
 export const LIGHT_THEME: Theme = {
   chartPaddings: DEFAULT_CHART_PADDING,
@@ -111,7 +111,7 @@ export const LIGHT_THEME: Theme = {
       strokeWidth: 1,
     },
     displayValue: {
-      fontSize: 10,
+      fontSize: 8,
       fontStyle: 'normal',
       fontFamily: DEFAULT_FONT_FAMILY,
       alignment: { horizontal: 'center', vertical: 'middle' },
@@ -147,7 +147,7 @@ export const LIGHT_THEME: Theme = {
     },
     axisPanelTitle: {
       visible: true,
-      fontSize: 10,
+      fontSize: 12,
       fontFamily: 'sans-serif',
       padding: {
         inner: 8,
@@ -157,7 +157,7 @@ export const LIGHT_THEME: Theme = {
     },
     axisLine: {
       visible: true,
-      stroke: '#eaedf3', // LIGHT_BASE_COLORS.lightShade,
+      stroke: '#eaeaea',
       strokeWidth: 1,
     },
     tickLabel: {
@@ -165,7 +165,7 @@ export const LIGHT_THEME: Theme = {
       fontSize: 10,
       fontFamily: DEFAULT_FONT_FAMILY,
       fontStyle: 'normal',
-      fill: '#646a77', // LIGHT_BASE_COLORS.darkShade,
+      fill: '#777', // LIGHT_BASE_COLORS.darkShade,
       padding: { outer: 8, inner: 10 },
       rotation: 0,
       offset: {
@@ -180,25 +180,25 @@ export const LIGHT_THEME: Theme = {
     },
     tickLine: {
       visible: false,
-      stroke: '#eaedf3', // LIGHT_BASE_COLORS.lightShade,
+      stroke: '#eaeaea', // LIGHT_BASE_COLORS.lightShade,
       strokeWidth: 1,
-      size: 10,
+      size: 5,
       padding: 10,
     },
     gridLine: {
       horizontal: {
-        visible: true,
-        stroke: '#E9EDF3',
+        visible: false,
+        stroke: '#eaedf3', // LIGHT_BASE_COLORS.lightShade,
         strokeWidth: 1,
         opacity: 1,
         dash: [0, 0],
       },
       vertical: {
-        visible: true,
-        stroke: '#E9EDF3',
+        visible: false,
+        stroke: '#eaedf3', // LIGHT_BASE_COLORS.lightShade,
         strokeWidth: 1,
         opacity: 1,
-        dash: [0, 0],
+        dash: [4, 4],
       },
       lumaSteps: [224, 184, 128, 96, 64, 32, 16, 8, 4, 2, 1, 0, 0, 0, 0, 0],
     },
@@ -213,7 +213,7 @@ export const LIGHT_THEME: Theme = {
     spacingBuffer: 10,
     margin: 0,
     labelOptions: {
-      maxLines: 1,
+      maxLines: 2,
     },
   },
   crosshair: {
