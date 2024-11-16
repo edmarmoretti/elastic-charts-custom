@@ -1,3 +1,9 @@
+# Tradução para português dos textos específicos utilizados no Kibana
+
+## Branches traduzidos:
+
+- v68.0.2-pt-br
+  
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/elastic/elastic-charts/main/public/logo.png" alt="elastic-charts logo" width="100" /><br />
   Elastic Charts
