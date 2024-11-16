@@ -25,9 +25,10 @@ interface LabelProps {
 const isAppleDevice = typeof window !== 'undefined' && /Mac|iPhone|iPad/.test(window.navigator.userAgent);
 
 const modifierKey = isAppleDevice ? '⌘' : 'Ctrl';
-const showAllSeriesMessage = 'to show all';
-const showSeriesMessage = 'to show';
-const hideSeriesMessage = 'to hide';
+//Edmar Moretti - tradução
+const showAllSeriesMessage = 'para mostrar tudo';
+const showSeriesMessage = 'para mostrar';
+const hideSeriesMessage = 'para esconder';
 
 function getInteractivityTitle(isSeriesVisible: boolean, hiddenSeries: number, allSeries: number) {
   if (isSeriesVisible) {
