@@ -213,7 +213,7 @@ export const LIGHT_THEME: Theme = {
     spacingBuffer: 10,
     margin: 0,
     labelOptions: {
-      maxLines: 1,
+      maxLines: 2,
     },
   },
   crosshair: {

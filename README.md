@@ -1,3 +1,24 @@
+Customizações realizadas:
+
+- Aumenta o número de linhas que é utilizado para quebrar os textos e incluir "...".
+
+- Nos grandes números, posiciona a métrica secundária abaixo da métrica principal.
+
+- Remove ",00" dos labels dos eixos e interior do gráfico.
+
+- Posiciona os títulos dos eixos no ínicio  da linha.
+
+- Não mostra labels dentro dos gráficos quando forem zero.
+
+- Muda o padrão de arredondamento dos valores nos labels dos eixos, mostrando o último valor superior.
+
+- Mostra a legenda apenas se houver mais de um item.
+
+
+Para utilizar no Kibana utilize o arquivo abaixo. Edite o arquivo package.json do Kibana antes de gerar o arquivo de distribuição.
+
+https://github.com/edmarmoretti/elastic-charts-pt-br/blob/v68.0.2-pt-br/packages/charts/elastic-charts-68.0.2-pt-br-1.tgz
+
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/elastic/elastic-charts/main/public/logo.png" alt="elastic-charts logo" width="100" /><br />
   Elastic Charts

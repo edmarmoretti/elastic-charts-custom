@@ -64,6 +64,12 @@ export function renderTitle(
     position === Position.Left || position === Position.Top
       ? outerPad(titlePadding) + (panel ? otherTitleDimension : 0)
       : tickDimension + labelSize + innerPad(titlePadding) + (panel ? 0 : otherTitleDimension);
+
+
+//if(panel){return;}
+
+  //Edmar Moretti - posiciona o título no início
+  /*
   const x = anchorPoint.x + (horizontal ? 0 : offset);
   const y = anchorPoint.y + (horizontal ? offset : height);
   const textX = horizontal ? width / 2 + (panel ? 0 : x) : font.fontSize / 2 + (panel ? offset : x);
@@ -80,4 +86,36 @@ export function renderTitle(
   if (!wrappedText[0]) return;
   if (debug) renderDebugRect(ctx, { x, y, width: horizontal ? width : height, height: font.fontSize }, rotation);
   renderText(ctx, { x: textX, y: textY }, wrappedText[0], font, rotation);
+  */
+  const x = anchorPoint.x + (horizontal ? 0 : offset);
+  const y = anchorPoint.y + (horizontal ? offset : height); 
+  let textX = horizontal ? width / 2 + (panel ? 0 : x) : font.fontSize / 2 + (panel ? offset : x);
+  let textY = horizontal ? font.fontSize / 2 + (panel ? offset : y) : (panel ? height : -height + 2 * y) / 2;
+  if(!horizontal){
+    textY = anchorPoint.y;
+    font.align = 'end';
+  }
+  if(horizontal){
+    textX = anchorPoint.x;
+    font.align = 'start';
+  }
+  //Edmar Moretti - remove a palavra filters do título
+  let titleClean = '';
+  if(titleToRender){
+    titleClean = titleToRender.replace('filters','');
+  }
+
+  const wrappedText = wrapText(
+    titleClean ?? '',
+    font,
+    font.fontSize,
+    horizontal ? width : height,
+    1,
+    measureText(ctx),
+    locale,
+  );
+  if (!wrappedText[0]) return;
+  if (debug) renderDebugRect(ctx, { x, y, width: horizontal ? width : height, height: font.fontSize }, rotation);
+  renderText(ctx, { x: textX, y: textY }, wrappedText[0], font, rotation);
+
 }

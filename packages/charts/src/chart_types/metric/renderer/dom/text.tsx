@@ -15,12 +15,14 @@ import { LayoutDirection, renderWithProps } from '../../../../utils/common';
 import { MetricStyle } from '../../../../utils/themes/theme';
 import { isMetricWNumber, MetricDatum } from '../../specs';
 
+//Edmar Moretti - aumenta o número de linhas que é utilizado para quebrar os textos e incluir os ...
+
 function lineClamp(maxLines: number): CSSProperties {
   return {
     textOverflow: 'ellipsis',
     display: '-webkit-box',
-    WebkitLineClamp: maxLines, // due to an issue with react CSSProperties filtering out this line, see https://github.com/facebook/react/issues/23033
-    lineClamp: maxLines,
+    WebkitLineClamp: maxLines + 3, // due to an issue with react CSSProperties filtering out this line, see https://github.com/facebook/react/issues/23033
+    lineClamp: maxLines + 3,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     whiteSpace: 'pre-wrap',
@@ -38,8 +40,13 @@ export const MetricText: React.FunctionComponent<{
   textDimensions: MetricTextDimensions;
 }> = ({ id, datum, style, onElementClick, highContrastTextColor, progressBarSize, textDimensions }) => {
   const { heightBasedSizes: sizes, hasProgressBar, progressBarDirection, visibility, textParts } = textDimensions;
-  const { extra, body } = datum;
-
+  //const { extra, body } = datum;
+//Edmar Moretti - replace de milhões por mi
+let { extra, value, body } = datum;
+if(typeof value == 'string'){
+  let v = value.replace("milhões","mi");
+  datum.value = v;
+}
   const containerClassName = classNames('echMetricText', {
     [`echMetricText--${progressBarSize}`]: hasProgressBar,
     'echMetricText--vertical': progressBarDirection === LayoutDirection.Vertical,
@@ -58,6 +65,7 @@ export const MetricText: React.FunctionComponent<{
       {datum.title}
     </span>
   );
+  //Edmar Moretti - coloca a metrica secundária abaixo da métrica principal
   return (
     <div className={containerClassName} style={{ color: highContrastTextColor }}>
       <div
@@ -118,13 +126,7 @@ export const MetricText: React.FunctionComponent<{
       <div className="echMetricText__gap">{body && <div className="echMetricText__body">{body}</div>}</div>
 
       <div className={classNames('echMetricText__valuesBlock', `echMetricText__valuesBlock--${style.valuesTextAlign}`)}>
-        <div>
-          {visibility.extra && (
-            <p className="echMetricText__extra" style={{ fontSize: sizes.extraFontSize }}>
-              {extra}
-            </p>
-          )}
-        </div>
+
 
         <div className="echMetricText__valueGroup">
           <p
@@ -167,6 +169,13 @@ export const MetricText: React.FunctionComponent<{
                 color: datum.valueColor ?? highContrastTextColor,
                 verticalAlign: 'middle',
               })}
+            </p>
+          )}
+        </div>
+        <div>
+          {visibility.extra && (
+            <p className="echMetricText__extra" style={{ fontSize: sizes.extraFontSize }}>
+              {extra}
             </p>
           )}
         </div>

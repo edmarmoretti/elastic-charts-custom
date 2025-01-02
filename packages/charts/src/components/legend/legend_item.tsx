@@ -93,6 +93,12 @@ export const LegendListItem: React.FC<LegendItemProps> = (props) => {
 
   if (isItemHidden) return null;
 
+    //Edmar Moretti - esconde o ícone de cor se se só existir um item na legenda
+    let showSymbol = true;
+    if(totalItems == 1){
+      showSymbol = false;
+    };
+
   return (
     <>
       <li
@@ -104,7 +110,9 @@ export const LegendListItem: React.FC<LegendItemProps> = (props) => {
         data-ech-series-name={label}
       >
         <div className="background" />
+        {showSymbol && (
         <div className="echLegend__colorWrapper">{renderItemColor()}</div>
+      )}
         <ItemLabel
           label={label}
           options={labelOptions}
