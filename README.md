@@ -17,7 +17,7 @@ Customizações realizadas:
 
 Para utilizar no Kibana utilize o arquivo abaixo. Edite o arquivo package.json do Kibana antes de gerar o arquivo de distribuição.
 
-https://github.com/edmarmoretti/elastic-charts-pt-br/blob/v68.0.2-pt-br/packages/charts/elastic-charts-68.0.2-pt-br-1.tgz
+https://github.com/edmarmoretti/elastic-charts-pt-br/blob/v68.0.2-pt-br-ms/packages/charts/elastic-charts-68.0.4-ms-1.tgz
 
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/elastic/elastic-charts/main/public/logo.png" alt="elastic-charts logo" width="100" /><br />
