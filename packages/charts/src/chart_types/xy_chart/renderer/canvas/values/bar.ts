@@ -14,7 +14,7 @@ import { HorizontalAlignment, Rotation, VerticalAlignment } from '../../../../..
 import { Dimensions } from '../../../../../utils/dimensions';
 import { BarGeometry } from '../../../../../utils/geometry';
 import { BackgroundStyle, TextAlignment, Theme } from '../../../../../utils/themes/theme';
-import { LabelOverflowConstraint } from '../../../utils/specs';
+//import { LabelOverflowConstraint } from '../../../utils/specs';
 import { renderText } from '../primitives/text';
 import { renderDebugRect } from '../utils/debug';
 import { withPanelTransform } from '../utils/panel_transform';
@@ -40,11 +40,18 @@ const CHART_DIRECTION: Record<string, Rotation> = {
 export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesProps) {
   const { bars, debug, rotation, renderingArea, barSeriesStyle, panel, background } = props;
   const { fontFamily, fontStyle, fill, alignment } = barSeriesStyle.displayValue;
-  bars.forEach((bar) => {
+  //Essa variável guarda os valores do label anterior
+  let rectAnterior = { x: 0, y: 0, width: 0, height: 0 };
+  //
+  bars.forEach((bar, k) => {
     if (!bar.displayValue) {
       return;
     }
-    const { text, fontSize, fontScale, overflowConstraints } = bar.displayValue;
+    //Edmar Moretti - força a inclusão do label em barras horizontais
+    if (rotation == 90) {
+      //bar.displayValue.isValueContainedInElement = false;
+    }
+    const { text, fontSize, fontScale } = bar.displayValue;
     const shadowSize = getTextBorderSize(fill);
     const { fillColor, shadowColor } = getTextColors(fill, bar.color, background);
     const font: Font = {
@@ -55,7 +62,7 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       textColor: fillColor,
     };
 
-    const { x, y, align, baseline, rect, overflow } = positionText(
+    var { x, y, align, baseline, rect } = positionText(
       bar,
       bar.displayValue,
       rotation,
@@ -63,10 +70,15 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
       alignment,
     );
 
-    if (overflowConstraints.has(LabelOverflowConstraint.ChartEdges) && isOverflow(rect, renderingArea, rotation)) {
-      return;
+    // Edmar Moretti - força a renderizar textos que estejam fora da geometria
+    if (isOverflow(rect, renderingArea, rotation)) {
+      if (rotation == 90) {
+        align = 'left';
+      }
     }
-    if (overflowConstraints.has(LabelOverflowConstraint.BarGeometry) && overflow) {
+
+    //Não mostra o label se estiver fora da largura da barra
+    if (rotation >= 0 && bar.displayValue.width > bar.width * 3) {
       return;
     }
     const lines = [text];
@@ -75,14 +87,22 @@ export function renderBarValues(ctx: CanvasRenderingContext2D, props: BarValuesP
     if (debug) withPanelTransform(ctx, panel, rotation, renderingArea, () => renderDebugRect(ctx, rect));
 
     lines.forEach((textLine, j) => {
+      //Edmar Moretti - verifica se os textos estão se sobrepondo
+      if (k > 0) {
+        if (isOverlap(rect, rectAnterior)) {
+          y = y + (rect.height*2);
+        }
+        rectAnterior = rect;
+        rectAnterior.y = y;
+      }
       const origin = lineOrigin(x, y, rotation, j, lines.length, width, height);
       const fontAugment = { fontSize, align, baseline, shadow: shadowColor, shadowSize };
       withPanelTransform(ctx, panel, rotation, renderingArea, () => {
         //Edmar Moretti - não mostra o label se for zero
-        if(textLine*1 != 0){  
+        if (textLine * 1 != 0) {
           renderText(ctx, origin, textLine, { ...font, ...fontAugment }, -rotation, 0, 0, fontScale);
         }
-    });
+      });
     });
   });
 }
@@ -170,14 +190,18 @@ function positionText(
           : horizontal === HorizontalAlignment.Right
             ? geom.width / 2 - valueBox.width / 2
             : 0;
+      /*
       const alignmentOffsetY =
         vertical === VerticalAlignment.Bottom
           ? geom.height - valueBox.height
           : vertical === VerticalAlignment.Middle
             ? geom.height / 2 - valueBox.height / 2
             : 0;
+      */
       const x = geom.x + geom.width / 2 - offsetX + alignmentOffsetX;
-      const y = geom.y - offsetY + alignmentOffsetY;
+      //const y = geom.y - offsetY + alignmentOffsetY;
+      //Edmar Moretti - posiciona o texto das barras verticais fora das barras
+      let y = geom.y - valueBox.height;
       const rect = { x: x - valueBox.width / 2, y, width: valueBox.width, height: valueBox.height };
       return { x, y, rect, align: 'center', baseline: 'top', overflow: horizontalOverflow };
     }
@@ -189,6 +213,16 @@ function isOverflow(rect: Rect, chartDimensions: Dimensions, chartRotation: Rota
   const cWidth = vertical ? chartDimensions.height : chartDimensions.width;
   const cHeight = vertical ? chartDimensions.width : chartDimensions.height;
   return rect.x < 0 || rect.x + rect.width > cWidth || rect.y < 0 || rect.y + rect.height > cHeight;
+}
+
+//Edmar Moretti - função para identificar se os textos se sobrepõem
+function isOverlap(r1: Rect, r2: Rect) {
+  //xmin,ymin,xmax,ymax
+  //Math.min(r1[2], r2[2]) > Math.max(r1[0], r2[0]);
+  let wOverlap = Math.min(r1.x + r1.width, r2.x + r2.width) >= Math.max(r1.x, r2.x);
+  //Math.min(rec1[3], rec2[3]) > Math.max(rec1[1], rec2[1]);
+  let hOverlap = Math.min(r1.y + r1.height, r2.y + r2.height) >= Math.max(r1.y, r2.y);
+  return wOverlap && hOverlap;
 }
 
 type ValueFillDefinition = Theme['barSeriesStyle']['displayValue']['fill'];
